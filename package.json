@@ -1,7 +1,7 @@
 {
-  "name": "@korbiniankuhn/date",
+  "name": "@korbiniankuhn/datetime",
   "version": "0.0.0",
-  "description": "",
+  "description": "High performance date manipulations",
   "main": "index.js",
   "scripts": {
     "test": "jest",
@@ -9,15 +9,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/KorbinianKuhn/date.git"
+    "url": "git+https://github.com/KorbinianKuhn/datetime.git"
   },
-  "keywords": [],
+  "keywords": [
+    "date",
+    "time",
+    "utilities",
+    "manipulation",
+    "operations"
+  ],
   "author": "Korbinian Kuhn",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/KorbinianKuhn/date/issues"
+    "url": "https://github.com/KorbinianKuhn/datetime/issues"
   },
-  "homepage": "https://github.com/KorbinianKuhn/date#readme",
+  "homepage": "https://github.com/KorbinianKuhn/datetime#readme",
   "devDependencies": {
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.6.1",

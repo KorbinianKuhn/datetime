@@ -1,6 +1,8 @@
 module.exports = {
   ...require("./src/add"),
+  ...require('./src/addPrototypes'),
   ...require("./src/clone"),
+  ...require("./src/DateTime"),
   ...require("./src/daysInMonth"),
   ...require("./src/daysInYear"),
   ...require("./src/diff"),

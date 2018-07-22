@@ -1,12 +1,28 @@
-const moment = require("moment");
+const moment = require('moment');
 const datetime = require('./../index');
 
 datetime.addPrototypes();
 
-describe("subtract functions", () => {
+describe('subtract functions', () => {
   const amounts = [0, 1, 5, 40, 100, 500];
-  const functionNames = ['subtractMilliseconds', 'subtractSeconds', 'subtractMinutes', 'subtractHours', 'subtractDays', 'subtractMonths', 'subtractYears']
-  const momentIntervals = ['milliseconds', 'seconds', 'minutes', 'hours', 'days', 'months', 'years'];
+  const functionNames = [
+    'subtractMilliseconds',
+    'subtractSeconds',
+    'subtractMinutes',
+    'subtractHours',
+    'subtractDays',
+    'subtractMonths',
+    'subtractYears'
+  ];
+  const momentIntervals = [
+    'milliseconds',
+    'seconds',
+    'minutes',
+    'hours',
+    'days',
+    'months',
+    'years'
+  ];
 
   const date = new Date('2018-01-01T00:00:00.000Z');
 
@@ -20,9 +36,17 @@ describe("subtract functions", () => {
         .getTime();
 
       it(`${functionName} with amount ${amount} should verify`, () => {
-        expect(datetime[functionName](new Date(date), amount).getTime()).toEqual(expected);
-        expect(new Date(date)[functionName](amount).getTime()).toEqual(expected);
-        expect(datetime(new Date(date))[functionName](amount).getTime()).toEqual(expected);
+        expect(
+          datetime[functionName](new Date(date), amount).getTime()
+        ).toEqual(expected);
+        expect(new Date(date)[functionName](amount).getTime()).toEqual(
+          expected
+        );
+        expect(
+          datetime(new Date(date))
+            [functionName](amount)
+            .getTime()
+        ).toEqual(expected);
       });
     }
   }

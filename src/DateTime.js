@@ -6,10 +6,10 @@ const {
   addDays,
   addMonths,
   addYears
-} = require("./add");
-const { clone } = require("./clone");
-const { daysInMonth } = require("./daysInMonth");
-const { daysInYear } = require("./daysInYear");
+} = require('./add');
+const { clone } = require('./clone');
+const { daysInMonth } = require('./daysInMonth');
+const { daysInYear } = require('./daysInYear');
 const {
   differenceInMilliseconds,
   differenceInSeconds,
@@ -18,7 +18,7 @@ const {
   differenceInDays,
   differenceInMonths,
   differenceInYears
-} = require("./diff");
+} = require('./diff');
 const {
   endOfSecond,
   endOfMinute,
@@ -26,7 +26,7 @@ const {
   endOfDay,
   endOfMonth,
   endOfYear
-} = require("./endOf");
+} = require('./endOf');
 const {
   isAfter,
   isAfterMillisecond,
@@ -36,7 +36,7 @@ const {
   isAfterDay,
   isAfterMonth,
   isAfterYear
-} = require("./isAfter");
+} = require('./isAfter');
 const {
   isBefore,
   isBeforeMillisecond,
@@ -46,8 +46,8 @@ const {
   isBeforeDay,
   isBeforeMonth,
   isBeforeYear
-} = require("./isBefore");
-const { isLeapYear } = require("./isLeapYear");
+} = require('./isBefore');
+const { isLeapYear } = require('./isLeapYear');
 const {
   isSame,
   isSameMillisecond,
@@ -57,7 +57,7 @@ const {
   isSameDay,
   isSameMonth,
   isSameYear
-} = require("./isSame");
+} = require('./isSame');
 const {
   isSameOrAfter,
   isSameOrAfterMillisecond,
@@ -67,7 +67,7 @@ const {
   isSameOrAfterDay,
   isSameOrAfterMonth,
   isSameOrAfterYear
-} = require("./isSameOrAfter");
+} = require('./isSameOrAfter');
 const {
   isSameOrBefore,
   isSameOrBeforeMillisecond,
@@ -77,8 +77,8 @@ const {
   isSameOrBeforeDay,
   isSameOrBeforeMonth,
   isSameOrBeforeYear
-} = require("./isSameOrBefore");
-const { isValid } = require("./isValid");
+} = require('./isSameOrBefore');
+const { isValid } = require('./isValid');
 const {
   startOfSecond,
   startOfMinute,
@@ -86,7 +86,7 @@ const {
   startOfDay,
   startOfMonth,
   startOfYear
-} = require("./startOf");
+} = require('./startOf');
 const {
   subtractMilliseconds,
   subtractSeconds,
@@ -95,9 +95,9 @@ const {
   subtractDays,
   subtractMonths,
   subtractYears
-} = require("./subtract");
-const { toUTC } = require("./toUTC");
-const { unix } = require("./unix");
+} = require('./subtract');
+const { toUTC } = require('./toUTC');
+const { unix } = require('./unix');
 
 class DateTime extends Date {
   constructor(input) {
@@ -148,32 +148,32 @@ class DateTime extends Date {
     return daysInYear(this);
   }
 
-  differenceInMilliseconds() {
-    return differenceInMilliseconds(this);
+  differenceInMilliseconds(date) {
+    return differenceInMilliseconds(this, date);
   }
 
-  differenceInSeconds() {
-    return differenceInSeconds(this);
+  differenceInSeconds(date) {
+    return differenceInSeconds(this, date);
   }
 
-  differenceInMinutes() {
-    return differenceInMinutes(this);
+  differenceInMinutes(date) {
+    return differenceInMinutes(this, date);
   }
 
-  differenceInHours() {
-    return differenceInHours(this);
+  differenceInHours(date) {
+    return differenceInHours(this, date);
   }
 
-  differenceInDays() {
-    return differenceInDays(this);
+  differenceInDays(date) {
+    return differenceInDays(this, date);
   }
 
-  differenceInMonths() {
-    return differenceInMonths(this);
+  differenceInMonths(date) {
+    return differenceInMonths(this, date);
   }
 
-  differenceInYears() {
-    return differenceInYears(this);
+  differenceInYears(date) {
+    return differenceInYears(this, date);
   }
 
   endOfSecond() {

@@ -1,9 +1,9 @@
-const moment = require("moment");
+const moment = require('moment');
 const datetime = require('./../index');
 
 datetime.addPrototypes();
 
-describe("isValid functions", () => {
+describe('isValid functions', () => {
   it('should be valid', () => {
     const date = new Date('2017-02-01T00:00:00.000Z');
 

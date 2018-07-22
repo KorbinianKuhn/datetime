@@ -2,7 +2,7 @@ const {
   MILLISECONDS_PER_HOUR,
   MILLISECONDS_PER_MINUTE,
   MILLISECONDS_PER_SECOND
-} = require("./internal/constants");
+} = require('./internal/constants');
 
 exports.addMilliseconds = (date, amount) => {
   date.setTime(date.getTime() + amount);

@@ -4,4 +4,4 @@ exports.addPrototype = (name, func) => {
   } else {
     Date.prototype[name] = func;
   }
-}
+};

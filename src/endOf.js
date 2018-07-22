@@ -1,4 +1,4 @@
-const { daysInMonth } = require("./daysInMonth");
+const { daysInMonth } = require('./daysInMonth');
 
 exports.endOfSecond = date => {
   date.setMilliseconds(999);

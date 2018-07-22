@@ -1,34 +1,34 @@
-const moment = require("moment");
-const datetime = require("./../index");
+const moment = require('moment');
+const datetime = require('./../index');
 
 datetime.addPrototypes();
 
-describe.skip("difference functions", () => {
+describe('difference functions', () => {
   const dates = [
-    new Date("2017-01-01T00:00:00.000Z"),
-    new Date("2018-01-01T00:00:00.000Z"),
-    new Date("2019-01-01T00:00:00.000Z")
+    new Date('2017-01-01T00:00:00.000Z'),
+    new Date('2018-01-01T00:00:00.000Z'),
+    new Date('2019-01-01T00:00:00.000Z')
   ];
   const functionNames = [
-    "differenceInMilliseconds",
-    "differenceInSeconds",
-    "differenceInMinutes",
-    "differenceInHours",
-    "differenceInDays",
-    "differenceInMonths",
-    "differenceInYears"
+    'differenceInMilliseconds',
+    'differenceInSeconds',
+    'differenceInMinutes',
+    'differenceInHours',
+    'differenceInDays',
+    'differenceInMonths',
+    'differenceInYears'
   ];
   const momentIntervals = [
-    "millisecond",
-    "second",
-    "minute",
-    "hour",
-    "day",
-    "month",
-    "year"
+    'millisecond',
+    'second',
+    'minute',
+    'hour',
+    'day',
+    'month',
+    'year'
   ];
 
-  const dateA = new Date("2018-01-01T00:00:00.000Z");
+  const dateA = new Date('2018-01-01T00:00:00.000Z');
 
   for (let i = 0; i < functionNames.length; i++) {
     const functionName = functionNames[i];

@@ -1,5 +1,4 @@
 exports.smallerEqualOrBigger = (a, b) => {
-  const diff = a - b;
   if (a < b) {
     return -1;
   } else if (a === b) {
@@ -7,4 +6,4 @@ exports.smallerEqualOrBigger = (a, b) => {
   } else {
     return 1;
   }
-}
+};

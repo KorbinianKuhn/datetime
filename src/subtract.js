@@ -1,10 +1,4 @@
 const {
-  MILLISECONDS_PER_HOUR,
-  MILLISECONDS_PER_MINUTE,
-  MILLISECONDS_PER_SECOND
-} = require("./internal/constants");
-
-const {
   addMilliseconds,
   addSeconds,
   addMinutes,
@@ -12,7 +6,7 @@ const {
   addDays,
   addMonths,
   addYears
-} = require("./add");
+} = require('./add');
 
 exports.subtractMilliseconds = (date, amount) => {
   return addMilliseconds(date, (amount *= -1));

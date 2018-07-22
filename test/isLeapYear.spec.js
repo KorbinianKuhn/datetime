@@ -1,9 +1,9 @@
-const moment = require("moment");
+const moment = require('moment');
 const datetime = require('./../index');
 
 datetime.addPrototypes();
 
-describe("isLeapYear functions", () => {
+describe('isLeapYear functions', () => {
   it('should be normal year', () => {
     const date = new Date('2017-02-01T00:00:00.000Z');
 

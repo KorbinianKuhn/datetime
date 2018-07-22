@@ -1,4 +1,9 @@
-const { MILLISECONDS_PER_SECOND, MILLISECONDS_PER_MINUTE, MILLISECONDS_PER_HOUR, MILLISECONDS_PER_DAY } = require('./internal/constants');
+const {
+  MILLISECONDS_PER_SECOND,
+  MILLISECONDS_PER_MINUTE,
+  MILLISECONDS_PER_HOUR,
+  MILLISECONDS_PER_DAY
+} = require('./internal/constants');
 const { smallerEqualOrBigger } = require('./internal/smallerEqualOrBigger');
 
 exports.isSameOrBefore = (dateA, dateB) => {

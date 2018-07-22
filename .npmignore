@@ -5,4 +5,5 @@ test
 .eslintrc
 .gitignore
 .travis.yml
+.prettierrc
 README.md

@@ -1,4 +1,4 @@
-const { isLeapYear } = require("./isLeapYear");
+const { isLeapYear } = require('./isLeapYear');
 
 exports.daysInYear = date => {
   return isLeapYear(date) ? 366 : 365;

@@ -1,8 +1,16 @@
 const { local, utc } = require('./src/DateTime');
-module.exports = local
+module.exports = local;
 module.exports.utc = utc;
 
-const { addMilliseconds, addSeconds, addMinutes, addHours, addDays, addMonths, addYears } = require('./src/add');
+const {
+  addMilliseconds,
+  addSeconds,
+  addMinutes,
+  addHours,
+  addDays,
+  addMonths,
+  addYears
+} = require('./src/add');
 module.exports.addMilliseconds = addMilliseconds;
 module.exports.addSeconds = addSeconds;
 module.exports.addMinutes = addMinutes;
@@ -23,7 +31,15 @@ module.exports.daysInMonth = daysInMonth;
 const { daysInYear } = require('./src/daysInYear');
 module.exports.daysInYear = daysInYear;
 
-const { differenceInMilliseconds, differenceInSeconds, differenceInMinutes, differenceInHours, differenceInDays, differenceInMonths, differenceInYears } = require('./src/diff');
+const {
+  differenceInMilliseconds,
+  differenceInSeconds,
+  differenceInMinutes,
+  differenceInHours,
+  differenceInDays,
+  differenceInMonths,
+  differenceInYears
+} = require('./src/diff');
 module.exports.differenceInMilliseconds = differenceInMilliseconds;
 module.exports.differenceInSeconds = differenceInSeconds;
 module.exports.differenceInMinutes = differenceInMinutes;
@@ -32,7 +48,14 @@ module.exports.differenceInDays = differenceInDays;
 module.exports.differenceInMonths = differenceInMonths;
 module.exports.differenceInYears = differenceInYears;
 
-const { endOfSecond, endOfMinute, endOfHour, endOfDay, endOfMonth, endOfYear } = require('./src/endOf');
+const {
+  endOfSecond,
+  endOfMinute,
+  endOfHour,
+  endOfDay,
+  endOfMonth,
+  endOfYear
+} = require('./src/endOf');
 module.exports.endOfSecond = endOfSecond;
 module.exports.endOfMinute = endOfMinute;
 module.exports.endOfHour = endOfHour;
@@ -40,7 +63,16 @@ module.exports.endOfDay = endOfDay;
 module.exports.endOfMonth = endOfMonth;
 module.exports.endOfYear = endOfYear;
 
-const { isAfter, isAfterMillisecond, isAfterSecond, isAfterMinute, isAfterHour, isAfterDay, isAfterMonth, isAfterYear } = require('./src/isAfter');
+const {
+  isAfter,
+  isAfterMillisecond,
+  isAfterSecond,
+  isAfterMinute,
+  isAfterHour,
+  isAfterDay,
+  isAfterMonth,
+  isAfterYear
+} = require('./src/isAfter');
 module.exports.isAfter = isAfter;
 module.exports.isAfterMillisecond = isAfterMillisecond;
 module.exports.isAfterSecond = isAfterSecond;
@@ -50,7 +82,16 @@ module.exports.isAfterDay = isAfterDay;
 module.exports.isAfterMonth = isAfterMonth;
 module.exports.isAfterYear = isAfterYear;
 
-const { isBefore, isBeforeMillisecond, isBeforeSecond, isBeforeMinute, isBeforeHour, isBeforeDay, isBeforeMonth, isBeforeYear } = require('./src/isBefore');
+const {
+  isBefore,
+  isBeforeMillisecond,
+  isBeforeSecond,
+  isBeforeMinute,
+  isBeforeHour,
+  isBeforeDay,
+  isBeforeMonth,
+  isBeforeYear
+} = require('./src/isBefore');
 module.exports.isBefore = isBefore;
 module.exports.isBeforeMillisecond = isBeforeMillisecond;
 module.exports.isBeforeSecond = isBeforeSecond;
@@ -63,7 +104,16 @@ module.exports.isBeforeYear = isBeforeYear;
 const { isLeapYear } = require('./src/isLeapYear');
 module.exports.isLeapYear = isLeapYear;
 
-const { isSame, isSameMillisecond, isSameSecond, isSameMinute, isSameHour, isSameDay, isSameMonth, isSameYear } = require('./src/isSame');
+const {
+  isSame,
+  isSameMillisecond,
+  isSameSecond,
+  isSameMinute,
+  isSameHour,
+  isSameDay,
+  isSameMonth,
+  isSameYear
+} = require('./src/isSame');
 module.exports.isSame = isSame;
 module.exports.isSameMillisecond = isSameMillisecond;
 module.exports.isSameSecond = isSameSecond;
@@ -73,7 +123,16 @@ module.exports.isSameDay = isSameDay;
 module.exports.isSameMonth = isSameMonth;
 module.exports.isSameYear = isSameYear;
 
-const { isSameOrAfter, isSameOrAfterMillisecond, isSameOrAfterSecond, isSameOrAfterMinute, isSameOrAfterHour, isSameOrAfterDay, isSameOrAfterMonth, isSameOrAfterYear } = require('./src/isSameOrAfter');
+const {
+  isSameOrAfter,
+  isSameOrAfterMillisecond,
+  isSameOrAfterSecond,
+  isSameOrAfterMinute,
+  isSameOrAfterHour,
+  isSameOrAfterDay,
+  isSameOrAfterMonth,
+  isSameOrAfterYear
+} = require('./src/isSameOrAfter');
 module.exports.isSameOrAfter = isSameOrAfter;
 module.exports.isSameOrAfterMillisecond = isSameOrAfterMillisecond;
 module.exports.isSameOrAfterSecond = isSameOrAfterSecond;
@@ -83,7 +142,16 @@ module.exports.isSameOrAfterDay = isSameOrAfterDay;
 module.exports.isSameOrAfterMonth = isSameOrAfterMonth;
 module.exports.isSameOrAfterYear = isSameOrAfterYear;
 
-const { isSameOrBefore, isSameOrBeforeMillisecond, isSameOrBeforeSecond, isSameOrBeforeMinute, isSameOrBeforeHour, isSameOrBeforeDay, isSameOrBeforeMonth, isSameOrBeforeYear } = require('./src/isSameOrBefore');
+const {
+  isSameOrBefore,
+  isSameOrBeforeMillisecond,
+  isSameOrBeforeSecond,
+  isSameOrBeforeMinute,
+  isSameOrBeforeHour,
+  isSameOrBeforeDay,
+  isSameOrBeforeMonth,
+  isSameOrBeforeYear
+} = require('./src/isSameOrBefore');
 module.exports.isSameOrBefore = isSameOrBefore;
 module.exports.isSameOrBeforeMillisecond = isSameOrBeforeMillisecond;
 module.exports.isSameOrBeforeSecond = isSameOrBeforeSecond;
@@ -96,7 +164,14 @@ module.exports.isSameOrBeforeYear = isSameOrBeforeYear;
 const { isValid } = require('./src/isValid');
 module.exports.isValid = isValid;
 
-const { startOfSecond, startOfMinute, startOfHour, startOfDay, startOfMonth, startOfYear } = require('./src/startOf');
+const {
+  startOfSecond,
+  startOfMinute,
+  startOfHour,
+  startOfDay,
+  startOfMonth,
+  startOfYear
+} = require('./src/startOf');
 module.exports.startOfSecond = startOfSecond;
 module.exports.startOfMinute = startOfMinute;
 module.exports.startOfHour = startOfHour;
@@ -104,7 +179,15 @@ module.exports.startOfDay = startOfDay;
 module.exports.startOfMonth = startOfMonth;
 module.exports.startOfYear = startOfYear;
 
-const { subtractMilliseconds, subtractSeconds, subtractMinutes, subtractHours, subtractDays, subtractMonths, subtractYears } = require('./src/subtract');
+const {
+  subtractMilliseconds,
+  subtractSeconds,
+  subtractMinutes,
+  subtractHours,
+  subtractDays,
+  subtractMonths,
+  subtractYears
+} = require('./src/subtract');
 module.exports.subtractMilliseconds = subtractMilliseconds;
 module.exports.subtractSeconds = subtractSeconds;
 module.exports.subtractMinutes = subtractMinutes;

@@ -1,12 +1,8 @@
 {
   "extends": ["eslint:recommended", "prettier"],
+  "plugins": ["prettier"],
   "rules": {
-    "prettier/prettier": [
-      "error",
-      {
-        "singleQuote": true
-      }
-    ],
+    "prettier/prettier": ["error"],
     "no-console": "off"
   },
   "parserOptions": {
@@ -16,7 +12,6 @@
       "modules": true
     }
   },
-  "plugins": ["prettier"],
   "env": {
     "jest": true,
     "node": true

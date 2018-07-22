@@ -1,30 +1,30 @@
-const moment = require("moment");
-const datetime = require("./../index");
+const moment = require('moment');
+const datetime = require('./../index');
 
 datetime.addPrototypes();
 
-describe("add functions", () => {
+describe('add functions', () => {
   const amounts = [0, 1, 5, 40, 100, 500];
   const functionNames = [
-    "addMilliseconds",
-    "addSeconds",
-    "addMinutes",
-    "addHours",
-    "addDays",
-    "addMonths",
-    "addYears"
+    'addMilliseconds',
+    'addSeconds',
+    'addMinutes',
+    'addHours',
+    'addDays',
+    'addMonths',
+    'addYears'
   ];
   const momentIntervals = [
-    "milliseconds",
-    "seconds",
-    "minutes",
-    "hours",
-    "days",
-    "months",
-    "years"
+    'milliseconds',
+    'seconds',
+    'minutes',
+    'hours',
+    'days',
+    'months',
+    'years'
   ];
 
-  const date = new Date("2018-01-01T00:00:00.000Z");
+  const date = new Date('2018-01-01T00:00:00.000Z');
 
   for (let i = 0; i < functionNames.length; i++) {
     const functionName = functionNames[i];

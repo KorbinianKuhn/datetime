@@ -29,6 +29,6 @@ exports.endOfMonth = date => {
 exports.endOfYear = date => {
   date.setHours(23, 59, 59, 999);
   date.setDate(31);
-  date.setMonth(12);
+  date.setMonth(11);
   return date;
 };

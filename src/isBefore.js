@@ -1,56 +1,155 @@
-exports.isAfter = (dateA, dateB) => {
+const { MILLISECONDS_PER_SECOND, MILLISECONDS_PER_MINUTE, MILLISECONDS_PER_HOUR, MILLISECONDS_PER_DAY } = require('./internal/constants');
+const { smallerEqualOrBigger } = require('./internal/smallerEqualOrBigger');
+
+exports.isBefore = (dateA, dateB) => {
   return dateA.getTime() < dateB.getTime();
 };
 
-exports.isAfterMillisecond = (dateA, dateB) => {
+exports.isBeforeMillisecond = (dateA, dateB) => {
   return dateA.getTime() < dateB.getTime();
 };
 
-exports.isAfterSecond = (dateA, dateB) => {
-  return (
-    dateA.getFullYear() <= dateB.getFullYear() &&
-    dateA.getMonth() <= dateB.getMonth() &&
-    dateA.getDate() <= dateB.getDate() &&
-    dateA.getHours() <= dateB.getHours() &&
-    dateA.getMinutes() <= dateB.getMinutes() &&
-    dateA.getSeconds() < dateB.getSeconds()
-  );
+exports.isBeforeSecond = (dateA, dateB) => {
+  if (dateB.getTime() - dateA.getTime() >= MILLISECONDS_PER_SECOND) {
+    return true;
+  }
+
+  switch (smallerEqualOrBigger(dateA.getFullYear(), dateB.getFullYear())) {
+    case -1:
+      return true;
+    case 1:
+      return false;
+  }
+
+  switch (smallerEqualOrBigger(dateA.getMonth(), dateB.getMonth())) {
+    case -1:
+      return true;
+    case 1:
+      return false;
+  }
+
+  switch (smallerEqualOrBigger(dateA.getDate(), dateB.getDate())) {
+    case -1:
+      return true;
+    case 1:
+      return false;
+  }
+
+  switch (smallerEqualOrBigger(dateA.getHours(), dateB.getHours())) {
+    case -1:
+      return true;
+    case 1:
+      return false;
+  }
+
+  switch (smallerEqualOrBigger(dateA.getMinutes(), dateB.getMinutes())) {
+    case -1:
+      return true;
+    case 1:
+      return false;
+  }
+
+  return dateA.getSeconds() < dateB.getSeconds();
 };
 
-exports.isAfterMinute = (dateA, dateB) => {
-  return (
-    dateA.getFullYear() <= dateB.getFullYear() &&
-    dateA.getMonth() <= dateB.getMonth() &&
-    dateA.getDate() <= dateB.getDate() &&
-    dateA.getHours() <= dateB.getHours() &&
-    dateA.getMinutes() < dateB.getMinutes()
-  );
+exports.isBeforeMinute = (dateA, dateB) => {
+  if (dateB.getTime() - dateA.getTime() >= MILLISECONDS_PER_MINUTE) {
+    return true;
+  }
+
+  switch (smallerEqualOrBigger(dateA.getFullYear(), dateB.getFullYear())) {
+    case -1:
+      return true;
+    case 1:
+      return false;
+  }
+
+  switch (smallerEqualOrBigger(dateA.getMonth(), dateB.getMonth())) {
+    case -1:
+      return true;
+    case 1:
+      return false;
+  }
+
+  switch (smallerEqualOrBigger(dateA.getDate(), dateB.getDate())) {
+    case -1:
+      return true;
+    case 1:
+      return false;
+  }
+
+  switch (smallerEqualOrBigger(dateA.getHours(), dateB.getHours())) {
+    case -1:
+      return true;
+    case 1:
+      return false;
+  }
+
+  return dateA.getMinutes() < dateB.getMinutes();
 };
 
-exports.isAfterHour = (dateA, dateB) => {
-  return (
-    dateA.getFullYear() <= dateB.getFullYear() &&
-    dateA.getMonth() <= dateB.getMonth() &&
-    dateA.getDate() <= dateB.getDate() &&
-    dateA.getHours() < dateB.getHours()
-  );
+exports.isBeforeHour = (dateA, dateB) => {
+  if (dateB.getTime() - dateA.getTime() >= MILLISECONDS_PER_HOUR) {
+    return true;
+  }
+
+  switch (smallerEqualOrBigger(dateA.getFullYear(), dateB.getFullYear())) {
+    case -1:
+      return true;
+    case 1:
+      return false;
+  }
+
+  switch (smallerEqualOrBigger(dateA.getMonth(), dateB.getMonth())) {
+    case -1:
+      return true;
+    case 1:
+      return false;
+  }
+
+  switch (smallerEqualOrBigger(dateA.getDate(), dateB.getDate())) {
+    case -1:
+      return true;
+    case 1:
+      return false;
+  }
+
+  return dateA.getHours() < dateB.getHours();
 };
 
-exports.isAfterDay = (dateA, dateB) => {
-  return (
-    dateA.getFullYear() <= dateB.getFullYear() &&
-    dateA.getMonth() <= dateB.getMonth() &&
-    dateA.getDate() < dateB.getDate()
-  );
+exports.isBeforeDay = (dateA, dateB) => {
+  if (dateB.getTime() - dateA.getTime() >= MILLISECONDS_PER_DAY) {
+    return true;
+  }
+
+  switch (smallerEqualOrBigger(dateA.getFullYear(), dateB.getFullYear())) {
+    case -1:
+      return true;
+    case 1:
+      return false;
+  }
+
+  switch (smallerEqualOrBigger(dateA.getMonth(), dateB.getMonth())) {
+    case -1:
+      return true;
+    case 1:
+      return false;
+  }
+
+  return dateA.getDate() < dateB.getDate();
 };
 
-exports.isAfterMonth = (dateA, dateB) => {
-  return (
-    dateA.getFullYear() <= dateB.getFullYear() &&
-    dateA.getMonth() < dateB.getMonth()
-  );
+exports.isBeforeMonth = (dateA, dateB) => {
+  switch (smallerEqualOrBigger(dateA.getFullYear(), dateB.getFullYear())) {
+    case -1:
+      return true;
+    case 1:
+      return false;
+  }
+
+  return dateA.getMonth() < dateB.getMonth();
 };
 
-exports.isAfterYear = (dateA, dateB) => {
+exports.isBeforeYear = (dateA, dateB) => {
   return dateA.getFullYear() < dateB.getFullYear();
 };

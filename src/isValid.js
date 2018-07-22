@@ -1,3 +1,3 @@
 exports.isValid = date => {
-  return !Number.isNaN(this.date.getTime());
+  return !Number.isNaN(date.getTime());
 };

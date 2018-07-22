@@ -1,12 +1,12 @@
-exports.isAfter = (dateA, dateB) => {
+exports.isSame = (dateA, dateB) => {
   return dateA.getTime() === dateB.getTime();
 };
 
-exports.isAfterMillisecond = (dateA, dateB) => {
+exports.isSameMillisecond = (dateA, dateB) => {
   return dateA.getTime() === dateB.getTime();
 };
 
-exports.isAfterSecond = (dateA, dateB) => {
+exports.isSameSecond = (dateA, dateB) => {
   return (
     dateA.getFullYear() === dateB.getFullYear() &&
     dateA.getMonth() === dateB.getMonth() &&
@@ -17,7 +17,7 @@ exports.isAfterSecond = (dateA, dateB) => {
   );
 };
 
-exports.isAfterMinute = (dateA, dateB) => {
+exports.isSameMinute = (dateA, dateB) => {
   return (
     dateA.getFullYear() === dateB.getFullYear() &&
     dateA.getMonth() === dateB.getMonth() &&
@@ -27,7 +27,7 @@ exports.isAfterMinute = (dateA, dateB) => {
   );
 };
 
-exports.isAfterHour = (dateA, dateB) => {
+exports.isSameHour = (dateA, dateB) => {
   return (
     dateA.getFullYear() === dateB.getFullYear() &&
     dateA.getMonth() === dateB.getMonth() &&
@@ -36,7 +36,7 @@ exports.isAfterHour = (dateA, dateB) => {
   );
 };
 
-exports.isAfterDay = (dateA, dateB) => {
+exports.isSameDay = (dateA, dateB) => {
   return (
     dateA.getFullYear() === dateB.getFullYear() &&
     dateA.getMonth() === dateB.getMonth() &&
@@ -44,13 +44,13 @@ exports.isAfterDay = (dateA, dateB) => {
   );
 };
 
-exports.isAfterMonth = (dateA, dateB) => {
+exports.isSameMonth = (dateA, dateB) => {
   return (
     dateA.getFullYear() === dateB.getFullYear() &&
     dateA.getMonth() === dateB.getMonth()
   );
 };
 
-exports.isAfterYear = (dateA, dateB) => {
+exports.isSameYear = (dateA, dateB) => {
   return dateA.getFullYear() === dateB.getFullYear();
 };

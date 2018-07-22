@@ -1,6 +1,6 @@
 {
   "name": "@korbiniankuhn/datetime",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "High performance date manipulations",
   "main": "index.js",
   "scripts": {

@@ -1,28 +1,36 @@
 const {
   MILLISECONDS_PER_HOUR,
   MILLISECONDS_PER_MINUTE,
-  MILLISECONDS_PER_SECOND
+  MILLISECONDS_PER_SECOND,
+  UNIT_MILLISECOND,
+  UNIT_SECOND,
+  UNIT_MINUTE,
+  UNIT_HOUR,
+  UNIT_DAY,
+  UNIT_MONTH,
+  UNIT_QUARTER,
+  UNIT_YEAR
 } = require('./internal/constants');
 
 const { normalizeUnit } = require('./internal/normalizeUnit');
 
 exports.add = (date, amount, unit = 'milliseconds') => {
   switch (normalizeUnit(unit)) {
-    case 'milliseconds':
+    case UNIT_MILLISECOND:
       return addMilliseconds(date, amount);
-    case 'seconds':
+    case UNIT_SECOND:
       return addSeconds(date, amount);
-    case 'minutes':
+    case UNIT_MINUTE:
       return addMinutes(date, amount);
-    case 'hours':
+    case UNIT_HOUR:
       return addHours(date, amount);
-    case 'days':
+    case UNIT_DAY:
       return addDays(date, amount);
-    case 'months':
+    case UNIT_MONTH:
       return addMonths(date, amount);
-    case 'quarters':
+    case UNIT_QUARTER:
       return addQuarters(date, amount);
-    case 'years':
+    case UNIT_YEAR:
       return addYears(date, amount);
   }
 };

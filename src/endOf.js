@@ -3,22 +3,31 @@ const {
   normalizeUnitWithoutMilliseconds
 } = require('./internal/normalizeUnit');
 const { getQuarter } = require('./getQuarter');
+const {
+  UNIT_SECOND,
+  UNIT_MINUTE,
+  UNIT_HOUR,
+  UNIT_DAY,
+  UNIT_MONTH,
+  UNIT_QUARTER,
+  UNIT_YEAR
+} = require('./internal/constants');
 
 exports.startOf = (date, unit = 'second') => {
   switch (normalizeUnitWithoutMilliseconds(unit)) {
-    case 'seconds':
+    case UNIT_SECOND:
       return endOfSecond(date);
-    case 'minutes':
+    case UNIT_MINUTE:
       return endOfMinute(date);
-    case 'hours':
+    case UNIT_HOUR:
       return endOfHour(date);
-    case 'days':
+    case UNIT_DAY:
       return endOfDay(date);
-    case 'months':
+    case UNIT_MONTH:
       return endOfMonth(date);
-    case 'quarters':
+    case UNIT_QUARTER:
       return endOfQuarter(date);
-    case 'years':
+    case UNIT_YEAR:
       return endOfYear(date);
   }
 };

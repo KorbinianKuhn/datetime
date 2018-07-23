@@ -1,4 +1,5 @@
 const {
+  add,
   addMilliseconds,
   addSeconds,
   addMinutes,
@@ -9,27 +10,8 @@ const {
   addYears
 } = require('./add');
 
-const { normalizeUnit } = require('./internal/normalizeUnit');
-
 exports.subtract = (date, amount, unit = 'milliseconds') => {
-  switch (normalizeUnit(unit)) {
-    case 'milliseconds':
-      return subtractMilliseconds(date, amount);
-    case 'seconds':
-      return subtractSeconds(date, amount);
-    case 'minutes':
-      return subtractMinutes(date, amount);
-    case 'hours':
-      return subtractHours(date, amount);
-    case 'days':
-      return subtractDays(date, amount);
-    case 'months':
-      return subtractMonths(date, amount);
-    case 'quarters':
-      return subtractQuarters(date, amount);
-    case 'years':
-      return subtractYears(date, amount);
-  }
+  return add(date, (amount *= -1), unit);
 };
 
 const subtractMilliseconds = (date, amount) => {

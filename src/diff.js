@@ -2,7 +2,15 @@ const {
   MILLISECONDS_PER_SECOND,
   MILLISECONDS_PER_MINUTE,
   MILLISECONDS_PER_DAY,
-  MILLISECONDS_PER_HOUR
+  MILLISECONDS_PER_HOUR,
+  UNIT_MILLISECOND,
+  UNIT_SECOND,
+  UNIT_MINUTE,
+  UNIT_HOUR,
+  UNIT_DAY,
+  UNIT_MONTH,
+  UNIT_QUARTER,
+  UNIT_YEAR
 } = require('./internal/constants');
 
 const { normalizeUnit } = require('./internal/normalizeUnit');
@@ -10,21 +18,21 @@ const { getQuarter } = require('./getQuarter');
 
 exports.difference = (dateA, dateB, unit = 'milliseconds') => {
   switch (normalizeUnit(unit)) {
-    case 'milliseconds':
+    case UNIT_MILLISECOND:
       return differenceInMilliseconds(dateA, dateB);
-    case 'seconds':
+    case UNIT_SECOND:
       return differenceInSeconds(dateA, dateB);
-    case 'minutes':
+    case UNIT_MINUTE:
       return differenceInMinutes(dateA, dateB);
-    case 'hours':
+    case UNIT_HOUR:
       return differenceInHours(dateA, dateB);
-    case 'days':
+    case UNIT_DAY:
       return differenceInDays(dateA, dateB);
-    case 'months':
+    case UNIT_MONTH:
       return differenceInMonths(dateA, dateB);
-    case 'quarters':
+    case UNIT_QUARTER:
       return differenceInQuarters(dateA, dateB);
-    case 'years':
+    case UNIT_YEAR:
       return differenceInYears(dateA, dateB);
   }
 };

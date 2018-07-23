@@ -1,23 +1,33 @@
 const { normalizeUnit } = require('./internal/normalizeUnit');
 const { getQuarter } = require('./getQuarter');
+const {
+  UNIT_MILLISECOND,
+  UNIT_SECOND,
+  UNIT_MINUTE,
+  UNIT_HOUR,
+  UNIT_DAY,
+  UNIT_MONTH,
+  UNIT_QUARTER,
+  UNIT_YEAR
+} = require('./internal/constants');
 
 exports.isSame = (dateA, dateB, unit = 'millisecond') => {
   switch (normalizeUnit(unit)) {
-    case 'milliseconds':
+    case UNIT_MILLISECOND:
       return isSameMillisecond(dateA, dateB);
-    case 'seconds':
+    case UNIT_SECOND:
       return isSameSecond(dateA, dateB);
-    case 'minutes':
+    case UNIT_MINUTE:
       return isSameMinute(dateA, dateB);
-    case 'hours':
+    case UNIT_HOUR:
       return isSameHour(dateA, dateB);
-    case 'days':
+    case UNIT_DAY:
       return isSameDay(dateA, dateB);
-    case 'months':
+    case UNIT_MONTH:
       return isSameMonth(dateA, dateB);
-    case 'quarters':
+    case UNIT_QUARTER:
       return isSameQuarter(dateA, dateB);
-    case 'years':
+    case UNIT_YEAR:
       return isSameYear(dateA, dateB);
   }
 };

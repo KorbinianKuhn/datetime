@@ -2,7 +2,15 @@ const {
   MILLISECONDS_PER_SECOND,
   MILLISECONDS_PER_MINUTE,
   MILLISECONDS_PER_HOUR,
-  MILLISECONDS_PER_DAY
+  MILLISECONDS_PER_DAY,
+  UNIT_MILLISECOND,
+  UNIT_SECOND,
+  UNIT_MINUTE,
+  UNIT_HOUR,
+  UNIT_DAY,
+  UNIT_MONTH,
+  UNIT_QUARTER,
+  UNIT_YEAR
 } = require('./internal/constants');
 const { smallerEqualOrBigger } = require('./internal/smallerEqualOrBigger');
 const { normalizeUnit } = require('./internal/normalizeUnit');
@@ -10,21 +18,21 @@ const { getQuarter } = require('./getQuarter');
 
 exports.isBefore = (dateA, dateB, unit = 'milliseconds') => {
   switch (normalizeUnit(unit)) {
-    case 'milliseconds':
+    case UNIT_MILLISECOND:
       return isBeforeMillisecond(dateA, dateB);
-    case 'seconds':
+    case UNIT_SECOND:
       return isBeforeSecond(dateA, dateB);
-    case 'minutes':
+    case UNIT_MINUTE:
       return isBeforeMinute(dateA, dateB);
-    case 'hours':
+    case UNIT_HOUR:
       return isBeforeHour(dateA, dateB);
-    case 'days':
+    case UNIT_DAY:
       return isBeforeDay(dateA, dateB);
-    case 'months':
+    case UNIT_MONTH:
       return isBeforeMonth(dateA, dateB);
-    case 'quarters':
+    case UNIT_QUARTER:
       return isBeforeQuarter(dateA, dateB);
-    case 'years':
+    case UNIT_YEAR:
       return isBeforeYear(dateA, dateB);
   }
 };

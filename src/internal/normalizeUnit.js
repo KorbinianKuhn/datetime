@@ -1,37 +1,48 @@
+const {
+  UNIT_MILLISECOND,
+  UNIT_SECOND,
+  UNIT_MINUTE,
+  UNIT_HOUR,
+  UNIT_DAY,
+  UNIT_MONTH,
+  UNIT_QUARTER,
+  UNIT_YEAR
+} = require('./constants');
+
 exports.normalizeUnit = unit => {
   switch (unit) {
     case 'millisecond':
     case 'milliseconds':
     case 'ms':
-      return 'milliseconds';
+      return UNIT_MILLISECOND;
     case 'second':
     case 'seconds':
     case 's':
-      return 'seconds';
+      return UNIT_SECOND;
     case 'minute':
     case 'minutes':
     case 'm':
-      return 'minutes';
+      return UNIT_MINUTE;
     case 'hour':
     case 'hours':
     case 'h':
-      return 'hours';
+      return UNIT_HOUR;
     case 'day':
     case 'days':
     case 'd':
-      return 'days';
+      return UNIT_DAY;
     case 'month':
     case 'months':
     case 'M':
-      return 'months';
+      return UNIT_MONTH;
     case 'quarter':
     case 'quarters':
     case 'Q':
-      return 'quarters';
+      return UNIT_QUARTER;
     case 'year':
     case 'years':
     case 'y':
-      return 'years';
+      return UNIT_YEAR;
   }
 
   throw new Error(`invalid date unit: ${unit}`);
@@ -42,31 +53,31 @@ exports.normalizeUnitWithoutMilliseconds = unit => {
     case 'second':
     case 'seconds':
     case 's':
-      return 'seconds';
+      return UNIT_SECOND;
     case 'minute':
     case 'minutes':
     case 'm':
-      return 'minutes';
+      return UNIT_MINUTE;
     case 'hour':
     case 'hours':
     case 'h':
-      return 'hours';
+      return UNIT_HOUR;
     case 'day':
     case 'days':
     case 'd':
-      return 'days';
+      return UNIT_DAY;
     case 'month':
     case 'months':
     case 'M':
-      return 'months';
+      return UNIT_MONTH;
     case 'quarter':
     case 'quarters':
     case 'Q':
-      return 'quarters';
+      return UNIT_QUARTER;
     case 'year':
     case 'years':
     case 'y':
-      return 'years';
+      return UNIT_YEAR;
   }
 
   throw new Error(`invalid date unit: ${unit}`);

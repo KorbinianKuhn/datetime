@@ -15,9 +15,18 @@ describe('endOf functions', () => {
     'endOfHour',
     'endOfDay',
     'endOfMonth',
+    'endOfQuarter',
     'endOfYear'
   ];
-  const momentIntervals = ['second', 'minute', 'hour', 'day', 'month', 'year'];
+  const momentIntervals = [
+    'second',
+    'minute',
+    'hour',
+    'day',
+    'month',
+    'quarter',
+    'year'
+  ];
 
   for (let i = 0; i < functionNames.length; i++) {
     const functionName = functionNames[i];
@@ -28,10 +37,10 @@ describe('endOf functions', () => {
         .toDate();
 
       it(`${functionName} should verify`, () => {
-        expect(datetime[functionName](date)).toEqual(expected);
-        expect(date[functionName]()).toEqual(expected);
+        expect(datetime[functionName](new Date(date))).toEqual(expected);
+        expect(new Date(date)[functionName]()).toEqual(expected);
         expect(
-          datetime(date)
+          datetime(new Date(date))
             [functionName]()
             .toDate()
         ).toEqual(expected);

@@ -5,6 +5,7 @@ const {
   addHours,
   addDays,
   addMonths,
+  addQuarters,
   addYears
 } = require('./add');
 
@@ -24,6 +25,8 @@ exports.subtract = (date, amount, unit = 'milliseconds') => {
       return subtractDays(date, amount);
     case 'months':
       return subtractMonths(date, amount);
+    case 'quarters':
+      return subtractQuarters(date, amount);
     case 'years':
       return subtractYears(date, amount);
   }
@@ -58,6 +61,11 @@ const subtractMonths = (date, amount) => {
   return addMonths(date, (amount *= -1));
 };
 exports.subtractMonths = subtractMonths;
+
+const subtractQuarters = (date, amount) => {
+  return addQuarters(date, (amount *= -1));
+};
+exports.subtractQuarters = subtractQuarters;
 
 const subtractYears = (date, amount) => {
   return addYears(date, (amount *= -1));

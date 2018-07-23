@@ -2,6 +2,7 @@ const { daysInMonth } = require('./daysInMonth');
 const {
   normalizeUnitWithoutMilliseconds
 } = require('./internal/normalizeUnit');
+const { getQuarter } = require('./getQuarter');
 
 exports.startOf = (date, unit = 'second') => {
   switch (normalizeUnitWithoutMilliseconds(unit)) {
@@ -15,6 +16,8 @@ exports.startOf = (date, unit = 'second') => {
       return endOfDay(date);
     case 'months':
       return endOfMonth(date);
+    case 'quarters':
+      return endOfQuarter(date);
     case 'years':
       return endOfYear(date);
   }
@@ -50,6 +53,15 @@ const endOfMonth = date => {
   return date;
 };
 exports.endOfMonth = endOfMonth;
+
+const endOfQuarter = date => {
+  date.setDate(1);
+  date.setHours(23, 59, 59, 999);
+  date.setMonth(getQuarter(date) * 3 - 1);
+  date.setDate(daysInMonth(date));
+  return date;
+};
+exports.endOfQuarter = endOfQuarter;
 
 const endOfYear = date => {
   date.setHours(23, 59, 59, 999);

@@ -24,6 +24,10 @@ exports.normalizeUnit = unit => {
     case 'months':
     case 'M':
       return 'months';
+    case 'quarter':
+    case 'quarters':
+    case 'Q':
+      return 'quarters';
     case 'year':
     case 'years':
     case 'y':
@@ -55,6 +59,10 @@ exports.normalizeUnitWithoutMilliseconds = unit => {
     case 'months':
     case 'M':
       return 'months';
+    case 'quarter':
+    case 'quarters':
+    case 'Q':
+      return 'quarters';
     case 'year':
     case 'years':
     case 'y':

@@ -6,6 +6,7 @@ const {
 } = require('./internal/constants');
 const { smallerEqualOrBigger } = require('./internal/smallerEqualOrBigger');
 const { normalizeUnit } = require('./internal/normalizeUnit');
+const { getQuarter } = require('./getQuarter');
 
 exports.isAfter = (dateA, dateB, unit = 'milliseconds') => {
   switch (normalizeUnit(unit)) {
@@ -21,6 +22,8 @@ exports.isAfter = (dateA, dateB, unit = 'milliseconds') => {
       return isAfterDay(dateA, dateB);
     case 'months':
       return isAfterMonth(dateA, dateB);
+    case 'quarters':
+      return isAfterQuarter(dateA, dateB);
     case 'years':
       return isAfterYear(dateA, dateB);
   }
@@ -176,6 +179,18 @@ const isAfterMonth = (dateA, dateB) => {
   return dateA.getMonth() > dateB.getMonth();
 };
 exports.isAfterMonth = isAfterMonth;
+
+const isAfterQuarter = (dateA, dateB) => {
+  switch (smallerEqualOrBigger(dateA.getFullYear(), dateB.getFullYear())) {
+    case -1:
+      return false;
+    case 1:
+      return true;
+  }
+
+  return getQuarter(dateA) > getQuarter(dateB);
+};
+exports.isAfterQuarter = isAfterQuarter;
 
 const isAfterYear = (dateA, dateB) => {
   return dateA.getFullYear() > dateB.getFullYear();

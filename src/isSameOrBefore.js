@@ -6,6 +6,7 @@ const {
 } = require('./internal/constants');
 const { smallerEqualOrBigger } = require('./internal/smallerEqualOrBigger');
 const { normalizeUnit } = require('./internal/normalizeUnit');
+const { getQuarter } = require('./getQuarter');
 
 exports.isSameOrBefore = (dateA, dateB, unit = 'millisecond') => {
   switch (normalizeUnit(unit)) {
@@ -21,6 +22,8 @@ exports.isSameOrBefore = (dateA, dateB, unit = 'millisecond') => {
       return isSameOrBeforeDay(dateA, dateB);
     case 'months':
       return isSameOrBeforeMonth(dateA, dateB);
+    case 'quarters':
+      return isSameOrBeforeQuarter(dateA, dateB);
     case 'years':
       return isSameOrBeforeYear(dateA, dateB);
   }
@@ -176,6 +179,18 @@ const isSameOrBeforeMonth = (dateA, dateB) => {
   return dateA.getMonth() <= dateB.getMonth();
 };
 exports.isSameOrBeforeMonth = isSameOrBeforeMonth;
+
+const isSameOrBeforeQuarter = (dateA, dateB) => {
+  switch (smallerEqualOrBigger(dateA.getFullYear(), dateB.getFullYear())) {
+    case -1:
+      return true;
+    case 1:
+      return false;
+  }
+
+  return getQuarter(dateA) <= getQuarter(dateB);
+};
+exports.isSameOrBeforeQuarter = isSameOrBeforeQuarter;
 
 const isSameOrBeforeYear = (dateA, dateB) => {
   return dateA.getFullYear() <= dateB.getFullYear();

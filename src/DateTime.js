@@ -6,10 +6,12 @@ const {
   addHours,
   addDays,
   addMonths,
+  addQuarters,
   addYears
 } = require('./add');
 const { clone } = require('./clone');
 const { daysInMonth } = require('./daysInMonth');
+const { daysInQuarter } = require('./daysInQuarter');
 const { daysInYear } = require('./daysInYear');
 const {
   difference,
@@ -19,6 +21,7 @@ const {
   differenceInHours,
   differenceInDays,
   differenceInMonths,
+  differenceInQuarters,
   differenceInYears
 } = require('./diff');
 const {
@@ -28,8 +31,10 @@ const {
   endOfHour,
   endOfDay,
   endOfMonth,
+  endOfQuarter,
   endOfYear
 } = require('./endOf');
+const { getQuarter } = require('./getQuarter');
 const {
   isAfter,
   isAfterMillisecond,
@@ -38,6 +43,7 @@ const {
   isAfterHour,
   isAfterDay,
   isAfterMonth,
+  isAfterQuarter,
   isAfterYear
 } = require('./isAfter');
 const {
@@ -48,6 +54,7 @@ const {
   isBeforeHour,
   isBeforeDay,
   isBeforeMonth,
+  isBeforeQuarter,
   isBeforeYear
 } = require('./isBefore');
 const { isLeapYear } = require('./isLeapYear');
@@ -59,6 +66,7 @@ const {
   isSameHour,
   isSameDay,
   isSameMonth,
+  isSameQuarter,
   isSameYear
 } = require('./isSame');
 const {
@@ -69,6 +77,7 @@ const {
   isSameOrAfterHour,
   isSameOrAfterDay,
   isSameOrAfterMonth,
+  isSameOrAfterQuarter,
   isSameOrAfterYear
 } = require('./isSameOrAfter');
 const {
@@ -79,6 +88,7 @@ const {
   isSameOrBeforeHour,
   isSameOrBeforeDay,
   isSameOrBeforeMonth,
+  isSameOrBeforeQuarter,
   isSameOrBeforeYear
 } = require('./isSameOrBefore');
 const { isValid } = require('./isValid');
@@ -89,6 +99,7 @@ const {
   startOfHour,
   startOfDay,
   startOfMonth,
+  startOfQuarter,
   startOfYear
 } = require('./startOf');
 const {
@@ -99,6 +110,7 @@ const {
   subtractHours,
   subtractDays,
   subtractMonths,
+  subtractQuarters,
   subtractYears
 } = require('./subtract');
 const { toUTC } = require('./toUTC');
@@ -141,6 +153,10 @@ class DateTime extends Date {
     return addMonths(this, amount);
   }
 
+  addQuarters(amount) {
+    return addQuarters(this, amount);
+  }
+
   addYears(amount) {
     return addYears(this, amount);
   }
@@ -151,6 +167,10 @@ class DateTime extends Date {
 
   daysInMonth() {
     return daysInMonth(this);
+  }
+
+  daysInQuarter() {
+    return daysInQuarter(this);
   }
 
   daysInYear() {
@@ -185,6 +205,10 @@ class DateTime extends Date {
     return differenceInMonths(this, date);
   }
 
+  differenceInQuarters(date) {
+    return differenceInQuarters(this, date);
+  }
+
   differenceInYears(date) {
     return differenceInYears(this, date);
   }
@@ -213,8 +237,16 @@ class DateTime extends Date {
     return endOfMonth(this);
   }
 
+  endOfQuarter() {
+    return endOfQuarter(this);
+  }
+
   endOfYear() {
     return endOfYear(this);
+  }
+
+  getQuarter() {
+    return getQuarter(this);
   }
 
   isAfter(date, unit = 'milliseconds') {
@@ -243,6 +275,10 @@ class DateTime extends Date {
 
   isAfterMonth(date) {
     return isAfterMonth(this, date);
+  }
+
+  isAfterQuarter(date) {
+    return isAfterQuarter(this, date);
   }
 
   isAfterYear(date) {
@@ -275,6 +311,10 @@ class DateTime extends Date {
 
   isBeforeMonth(date) {
     return isBeforeMonth(this, date);
+  }
+
+  isBeforeQuarter(date) {
+    return isBeforeQuarter(this, date);
   }
 
   isBeforeYear(date) {
@@ -313,6 +353,10 @@ class DateTime extends Date {
     return isSameMonth(this, date);
   }
 
+  isSameQuarter(date) {
+    return isSameQuarter(this, date);
+  }
+
   isSameYear(date) {
     return isSameYear(this, date);
   }
@@ -343,6 +387,10 @@ class DateTime extends Date {
 
   isSameOrAfterMonth(date) {
     return isSameOrAfterMonth(this, date);
+  }
+
+  isSameOrAfterQuarter(date) {
+    return isSameOrAfterQuarter(this, date);
   }
 
   isSameOrAfterYear(date) {
@@ -377,6 +425,10 @@ class DateTime extends Date {
     return isSameOrBeforeMonth(this, date);
   }
 
+  isSameOrBeforeQuarter(date) {
+    return isSameOrBeforeQuarter(this, date);
+  }
+
   isSameOrBeforeYear(date) {
     return isSameOrBeforeYear(this, date);
   }
@@ -409,6 +461,10 @@ class DateTime extends Date {
     return startOfMonth(this);
   }
 
+  startOfQuarter() {
+    return startOfQuarter(this);
+  }
+
   startOfYear() {
     return startOfYear(this);
   }
@@ -439,6 +495,10 @@ class DateTime extends Date {
 
   subtractMonths(amount) {
     return subtractMonths(this, amount);
+  }
+
+  subtractQuarters(amount) {
+    return subtractQuarters(this, amount);
   }
 
   subtractYears(amount) {

@@ -7,10 +7,12 @@ const {
   addHours,
   addDays,
   addMonths,
+  addQuarters,
   addYears
 } = require('./add');
 const { clone } = require('./clone');
 const { daysInMonth } = require('./daysInMonth');
+const { daysInQuarter } = require('./daysInQuarter');
 const { daysInYear } = require('./daysInYear');
 const {
   difference,
@@ -20,6 +22,7 @@ const {
   differenceInHours,
   differenceInDays,
   differenceInMonths,
+  differenceInQuarters,
   differenceInYears
 } = require('./diff');
 const {
@@ -29,8 +32,10 @@ const {
   endOfHour,
   endOfDay,
   endOfMonth,
+  endOfQuarter,
   endOfYear
 } = require('./endOf');
+const { getQuarter } = require('./getQuarter');
 const {
   isAfter,
   isAfterMillisecond,
@@ -39,6 +44,7 @@ const {
   isAfterHour,
   isAfterDay,
   isAfterMonth,
+  isAfterQuarter,
   isAfterYear
 } = require('./isAfter');
 const {
@@ -49,6 +55,7 @@ const {
   isBeforeHour,
   isBeforeDay,
   isBeforeMonth,
+  isBeforeQuarter,
   isBeforeYear
 } = require('./isBefore');
 const { isLeapYear } = require('./isLeapYear');
@@ -60,6 +67,7 @@ const {
   isSameHour,
   isSameDay,
   isSameMonth,
+  isSameQuarter,
   isSameYear
 } = require('./isSame');
 const {
@@ -70,6 +78,7 @@ const {
   isSameOrAfterHour,
   isSameOrAfterDay,
   isSameOrAfterMonth,
+  isSameOrAfterQuarter,
   isSameOrAfterYear
 } = require('./isSameOrAfter');
 const {
@@ -80,6 +89,7 @@ const {
   isSameOrBeforeHour,
   isSameOrBeforeDay,
   isSameOrBeforeMonth,
+  isSameOrBeforeQuarter,
   isSameOrBeforeYear
 } = require('./isSameOrBefore');
 const { isValid } = require('./isValid');
@@ -90,6 +100,7 @@ const {
   startOfHour,
   startOfDay,
   startOfMonth,
+  startOfQuarter,
   startOfYear
 } = require('./startOf');
 const {
@@ -100,6 +111,7 @@ const {
   subtractHours,
   subtractDays,
   subtractMonths,
+  subtractQuarters,
   subtractYears
 } = require('./subtract');
 const { toUTC } = require('./toUTC');
@@ -134,6 +146,10 @@ exports.addPrototypes = () => {
     return addMonths(this, amount);
   });
 
+  addPrototype('addQuarters', function(amount) {
+    return addQuarters(this, amount);
+  });
+
   addPrototype('addYears', function(amount) {
     return addYears(this, amount);
   });
@@ -144,6 +160,10 @@ exports.addPrototypes = () => {
 
   addPrototype('daysInMonth', function() {
     return daysInMonth(this);
+  });
+
+  addPrototype('daysInQuarter', function() {
+    return daysInQuarter(this);
   });
 
   addPrototype('daysInYear', function() {
@@ -178,6 +198,10 @@ exports.addPrototypes = () => {
     return differenceInMonths(this, date);
   });
 
+  addPrototype('differenceInQuarters', function(date) {
+    return differenceInQuarters(this, date);
+  });
+
   addPrototype('differenceInYears', function(date) {
     return differenceInYears(this, date);
   });
@@ -206,8 +230,16 @@ exports.addPrototypes = () => {
     return endOfMonth(this);
   });
 
+  addPrototype('endOfQuarter', function() {
+    return endOfQuarter(this);
+  });
+
   addPrototype('endOfYear', function() {
     return endOfYear(this);
+  });
+
+  addPrototype('getQuarter', function() {
+    return getQuarter(this);
   });
 
   addPrototype('isAfter', function(date, unit = 'millisecond') {
@@ -236,6 +268,10 @@ exports.addPrototypes = () => {
 
   addPrototype('isAfterMonth', function(date) {
     return isAfterMonth(this, date);
+  });
+
+  addPrototype('isAfterQuarter', function(date) {
+    return isAfterQuarter(this, date);
   });
 
   addPrototype('isAfterYear', function(date) {
@@ -268,6 +304,10 @@ exports.addPrototypes = () => {
 
   addPrototype('isBeforeMonth', function(date) {
     return isBeforeMonth(this, date);
+  });
+
+  addPrototype('isBeforeQuarter', function(date) {
+    return isBeforeQuarter(this, date);
   });
 
   addPrototype('isBeforeYear', function(date) {
@@ -306,6 +346,10 @@ exports.addPrototypes = () => {
     return isSameMonth(this, date);
   });
 
+  addPrototype('isSameQuarter', function(date) {
+    return isSameQuarter(this, date);
+  });
+
   addPrototype('isSameYear', function(date) {
     return isSameYear(this, date);
   });
@@ -336,6 +380,10 @@ exports.addPrototypes = () => {
 
   addPrototype('isSameOrAfterMonth', function(date) {
     return isSameOrAfterMonth(this, date);
+  });
+
+  addPrototype('isSameOrAfterQuarter', function(date) {
+    return isSameOrAfterQuarter(this, date);
   });
 
   addPrototype('isSameOrAfterYear', function(date) {
@@ -370,6 +418,10 @@ exports.addPrototypes = () => {
     return isSameOrBeforeMonth(this, date);
   });
 
+  addPrototype('isSameOrBeforeQuarter', function(date) {
+    return isSameOrBeforeQuarter(this, date);
+  });
+
   addPrototype('isSameOrBeforeYear', function(date) {
     return isSameOrBeforeYear(this, date);
   });
@@ -402,6 +454,10 @@ exports.addPrototypes = () => {
     return startOfMonth(this);
   });
 
+  addPrototype('startOfQuarter', function() {
+    return startOfQuarter(this);
+  });
+
   addPrototype('startOfYear', function() {
     return startOfYear(this);
   });
@@ -432,6 +488,10 @@ exports.addPrototypes = () => {
 
   addPrototype('subtractMonths', function(amount) {
     return subtractMonths(this, amount);
+  });
+
+  addPrototype('subtractQuarters', function(amount) {
+    return subtractQuarters(this, amount);
   });
 
   addPrototype('subtractYears', function(amount) {

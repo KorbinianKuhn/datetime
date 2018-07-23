@@ -20,6 +20,8 @@ exports.add = (date, amount, unit = 'milliseconds') => {
       return addDays(date, amount);
     case 'months':
       return addMonths(date, amount);
+    case 'quarters':
+      return addQuarters(date, amount);
     case 'years':
       return addYears(date, amount);
   }
@@ -60,6 +62,12 @@ const addMonths = (date, amount) => {
   return date;
 };
 exports.addMonths = addMonths;
+
+const addQuarters = (date, amount) => {
+  date.setMonth(date.getMonth() + amount * 3);
+  return date;
+};
+exports.addQuarters = addQuarters;
 
 const addYears = (date, amount) => {
   date.setFullYear(date.getFullYear() + amount);

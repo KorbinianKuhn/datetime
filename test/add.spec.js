@@ -12,6 +12,7 @@ describe('add functions', () => {
     'addHours',
     'addDays',
     'addMonths',
+    'addQuarters',
     'addYears'
   ];
   const momentIntervals = [
@@ -21,6 +22,7 @@ describe('add functions', () => {
     'hours',
     'days',
     'months',
+    'quarters',
     'years'
   ];
 

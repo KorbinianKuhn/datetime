@@ -17,6 +17,7 @@ describe('isSameOrAfter functions', () => {
     'isSameOrAfterHour',
     'isSameOrAfterDay',
     'isSameOrAfterMonth',
+    'isSameOrAfterQuarter',
     'isSameOrAfterYear'
   ];
   const momentIntervals = [
@@ -27,6 +28,7 @@ describe('isSameOrAfter functions', () => {
     'hour',
     'day',
     'month',
+    'quarter',
     'year'
   ];
 

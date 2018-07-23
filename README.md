@@ -128,21 +128,15 @@ Create a copy of the date.
 | ----------------- | ------------------------------- |
 | ```clone(date)``` | ```(Date / datetime).clone()``` |
 
-### daysInMonth
+### daysIn*
 
-Get the number of days in month.
+Get the number of days in month, quarter or year.
 
-| Functional              | Prototype / datetime                  |
-| ----------------------- | ------------------------------------- |
-| ```daysInMonth(date)``` | ```(Date / datetime).daysInMonth()``` |
-
-### daysInYear
-
-Get the number of days in year.
-
-| Functional             | Prototype / datetime                 |
-| ---------------------- | ------------------------------------ |
-| ```daysInYear(date)``` | ```(Date / datetime).daysInYear()``` |
+| Functional                | Prototype / datetime                    |
+| ------------------------- | --------------------------------------- |
+| ```daysInMonth(date)```   | ```(Date / datetime).daysInMonth()```   |
+| ```daysInQuarter(date)``` | ```(Date / datetime).daysInQuarter()``` |
+| ```daysInYear(date)```    | ```(Date / datetime).daysInYear()```    |
 
 ### diff*
 
@@ -173,6 +167,14 @@ Set date to end of given interval.
 | ```endOfMonth(date)```  | ```(Date / datetime).endOfMonth()```  |
 | ```endOfYear(date)```   | ```(Date / datetime).endOfYear()```   |
 
+### getQuarter
+
+Get quarter of date in year. First quarter starts with 1.
+
+| Functional             | Prototype / datetime                 |
+| ---------------------- | ------------------------------------ |
+| ```getQuarter(date)``` | ```(Date / datetime).getQuarter()``` |
+
 ### isAfter*
 
 Check if date is after another date.
@@ -186,6 +188,7 @@ Check if date is after another date.
 | ```isAfterHour(dateA, dateB)```        | ```(Date / datetime).isAfterHour(dateB)```        |
 | ```isAfterDay(dateA, dateB)```         | ```(Date / datetime).isAfterDay(dateB)```         |
 | ```isAfterMonth(dateA, dateB)```       | ```(Date / datetime).isAfterMonth(dateB)```       |
+| ```isAfterQuarter(dateA, dateB)```     | ```(Date / datetime).isAfterQuarter(dateB)```     |
 | ```isAfterYear(dateA, dateB)```        | ```(Date / datetime).isAfterYear(dateB)```        |
 
 ### isBefore*
@@ -201,6 +204,7 @@ Check if date is before another date.
 | ```isBeforeHour(dateA, dateB)```        | ```(Date / datetime).isBeforeHour(dateB)```        |
 | ```isBeforeDay(dateA, dateB)```         | ```(Date / datetime).isBeforeDay(dateB)```         |
 | ```isBeforeMonth(dateA, dateB)```       | ```(Date / datetime).isBeforeMonth(dateB)```       |
+| ```isBeforeQuarter(dateA, dateB)```     | ```(Date / datetime).isBeforeQuarter(dateB)```     |
 | ```isBeforeYear(dateA, dateB)```        | ```(Date / datetime).isBeforeYear(dateB)```        |
 
 ### isLeapYear
@@ -224,6 +228,7 @@ Check if date is same as another date.
 | ```isSameHour(dateA, dateB)```        | ```(Date / datetime).isSameHour(dateB)```        |
 | ```isSameDay(dateA, dateB)```         | ```(Date / datetime).isSameDay(dateB)```         |
 | ```isSameMonth(dateA, dateB)```       | ```(Date / datetime).isSameMonth(dateB)```       |
+| ```isSameQuarter(dateA, dateB)```     | ```(Date / datetime).isSameQuarter(dateB)```     |
 | ```isSameYear(dateA, dateB)```        | ```(Date / datetime).isSameYear(dateB)```        |
 
 ### isSameOrAfter*
@@ -239,6 +244,7 @@ Check if date is same as or after another date.
 | ```isSameOrAfterHour(dateA, dateB)```        | ```(Date / datetime).isSameOrAfterHour(dateB)```        |
 | ```isSameOrAfterDay(dateA, dateB)```         | ```(Date / datetime).isSameOrAfterDay(dateB)```         |
 | ```isSameOrAfterMonth(dateA, dateB)```       | ```(Date / datetime).isSameOrAfterMonth(dateB)```       |
+| ```isSameOrAfterQuarter(dateA, dateB)```     | ```(Date / datetime).isSameOrAfterQuarter(dateB)```     |
 | ```isSameOrAfterYear(dateA, dateB)```        | ```(Date / datetime).isSameOrAfterYear(dateB)```        |
 
 ### isSameOrBefore*
@@ -254,6 +260,7 @@ Check if date is same as or before another date.
 | ```isSameOrBeforeHour(dateA, dateB)```        | ```(Date / datetime).isSameOrBeforeHour(dateB)```        |
 | ```isSameOrBeforeDay(dateA, dateB)```         | ```(Date / datetime).isSameOrBeforeDay(dateB)```         |
 | ```isSameOrBeforeMonth(dateA, dateB)```       | ```(Date / datetime).isSameOrBeforeMonth(dateB)```       |
+| ```isSameOrBeforeQuarter(dateA, dateB)```     | ```(Date / datetime).isSameOrBeforeQuarter(dateB)```     |
 | ```isSameOrBeforeYear(dateA, dateB)```        | ```(Date / datetime).isSameOrBeforeYear(dateB)```        |
 
 ### isValid

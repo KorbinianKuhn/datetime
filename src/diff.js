@@ -6,6 +6,7 @@ const {
 } = require('./internal/constants');
 
 const { normalizeUnit } = require('./internal/normalizeUnit');
+const { getQuarter } = require('./getQuarter');
 
 exports.difference = (dateA, dateB, unit = 'milliseconds') => {
   switch (normalizeUnit(unit)) {
@@ -21,6 +22,8 @@ exports.difference = (dateA, dateB, unit = 'milliseconds') => {
       return differenceInDays(dateA, dateB);
     case 'months':
       return differenceInMonths(dateA, dateB);
+    case 'quarters':
+      return differenceInQuarters(dateA, dateB);
     case 'years':
       return differenceInYears(dateA, dateB);
   }
@@ -71,6 +74,15 @@ const differenceInMonths = (dateA, dateB) => {
   );
 };
 exports.differenceInMonths = differenceInMonths;
+
+const differenceInQuarters = (dateA, dateB) => {
+  return (
+    (dateA.getFullYear() - dateB.getFullYear()) * 4 +
+    getQuarter(dateA) -
+    getQuarter(dateB)
+  );
+};
+exports.differenceInQuarters = differenceInQuarters;
 
 const differenceInYears = (dateA, dateB) => {
   return dateA.getFullYear() - dateB.getFullYear();

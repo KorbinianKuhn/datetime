@@ -16,6 +16,7 @@ describe('difference functions', () => {
     'differenceInHours',
     'differenceInDays',
     'differenceInMonths',
+    'differenceInQuarters',
     'differenceInYears'
   ];
   const momentIntervals = [
@@ -25,6 +26,7 @@ describe('difference functions', () => {
     'hour',
     'day',
     'month',
+    'quarter',
     'year'
   ];
 

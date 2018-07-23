@@ -3,6 +3,7 @@ module.exports = local;
 module.exports.utc = utc;
 
 const {
+  add,
   addMilliseconds,
   addSeconds,
   addMinutes,
@@ -12,6 +13,7 @@ const {
   addYears
 } = require('./src/add');
 module.exports.addMilliseconds = addMilliseconds;
+module.exports.add = add;
 module.exports.addSeconds = addSeconds;
 module.exports.addMinutes = addMinutes;
 module.exports.addHours = addHours;
@@ -32,6 +34,7 @@ const { daysInYear } = require('./src/daysInYear');
 module.exports.daysInYear = daysInYear;
 
 const {
+  difference,
   differenceInMilliseconds,
   differenceInSeconds,
   differenceInMinutes,
@@ -40,6 +43,7 @@ const {
   differenceInMonths,
   differenceInYears
 } = require('./src/diff');
+module.exports.difference = difference;
 module.exports.differenceInMilliseconds = differenceInMilliseconds;
 module.exports.differenceInSeconds = differenceInSeconds;
 module.exports.differenceInMinutes = differenceInMinutes;
@@ -49,6 +53,7 @@ module.exports.differenceInMonths = differenceInMonths;
 module.exports.differenceInYears = differenceInYears;
 
 const {
+  endOf,
   endOfSecond,
   endOfMinute,
   endOfHour,
@@ -56,6 +61,7 @@ const {
   endOfMonth,
   endOfYear
 } = require('./src/endOf');
+module.exports.endOf = endOf;
 module.exports.endOfSecond = endOfSecond;
 module.exports.endOfMinute = endOfMinute;
 module.exports.endOfHour = endOfHour;
@@ -165,6 +171,7 @@ const { isValid } = require('./src/isValid');
 module.exports.isValid = isValid;
 
 const {
+  startOf,
   startOfSecond,
   startOfMinute,
   startOfHour,
@@ -172,6 +179,7 @@ const {
   startOfMonth,
   startOfYear
 } = require('./src/startOf');
+module.exports.startOf = startOf;
 module.exports.startOfSecond = startOfSecond;
 module.exports.startOfMinute = startOfMinute;
 module.exports.startOfHour = startOfHour;
@@ -180,6 +188,7 @@ module.exports.startOfMonth = startOfMonth;
 module.exports.startOfYear = startOfYear;
 
 const {
+  subtract,
   subtractMilliseconds,
   subtractSeconds,
   subtractMinutes,
@@ -188,6 +197,7 @@ const {
   subtractMonths,
   subtractYears
 } = require('./src/subtract');
+module.exports.subtract = subtract;
 module.exports.subtractMilliseconds = subtractMilliseconds;
 module.exports.subtractSeconds = subtractSeconds;
 module.exports.subtractMinutes = subtractMinutes;

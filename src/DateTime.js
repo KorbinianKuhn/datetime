@@ -1,4 +1,5 @@
 const {
+  add,
   addMilliseconds,
   addSeconds,
   addMinutes,
@@ -11,6 +12,7 @@ const { clone } = require('./clone');
 const { daysInMonth } = require('./daysInMonth');
 const { daysInYear } = require('./daysInYear');
 const {
+  difference,
   differenceInMilliseconds,
   differenceInSeconds,
   differenceInMinutes,
@@ -20,6 +22,7 @@ const {
   differenceInYears
 } = require('./diff');
 const {
+  endOf,
   endOfSecond,
   endOfMinute,
   endOfHour,
@@ -80,6 +83,7 @@ const {
 } = require('./isSameOrBefore');
 const { isValid } = require('./isValid');
 const {
+  startOf,
   startOfSecond,
   startOfMinute,
   startOfHour,
@@ -88,6 +92,7 @@ const {
   startOfYear
 } = require('./startOf');
 const {
+  subtract,
   subtractMilliseconds,
   subtractSeconds,
   subtractMinutes,
@@ -106,6 +111,10 @@ class DateTime extends Date {
 
   toDate() {
     return new Date(this);
+  }
+
+  add(amount, unit = 'milliseconds') {
+    return add(this, amount, unit);
   }
 
   addMilliseconds(amount) {
@@ -148,6 +157,10 @@ class DateTime extends Date {
     return daysInYear(this);
   }
 
+  difference(date, unit = 'milliseconds') {
+    return difference(this, date, unit);
+  }
+
   differenceInMilliseconds(date) {
     return differenceInMilliseconds(this, date);
   }
@@ -176,6 +189,10 @@ class DateTime extends Date {
     return differenceInYears(this, date);
   }
 
+  endOf(unit = 'second') {
+    return endOf(this, unit);
+  }
+
   endOfSecond() {
     return endOfSecond(this);
   }
@@ -200,8 +217,8 @@ class DateTime extends Date {
     return endOfYear(this);
   }
 
-  isAfter(date) {
-    return isAfter(this, date);
+  isAfter(date, unit = 'milliseconds') {
+    return isAfter(this, date, unit);
   }
 
   isAfterMillisecond(date) {
@@ -232,8 +249,8 @@ class DateTime extends Date {
     return isAfterYear(this, date);
   }
 
-  isBefore(date) {
-    return isBefore(this, date);
+  isBefore(date, unit = 'milliseconds') {
+    return isBefore(this, date, unit);
   }
 
   isBeforeMillisecond(date) {
@@ -268,8 +285,8 @@ class DateTime extends Date {
     return isLeapYear(this);
   }
 
-  isSame(date) {
-    return isSame(this, date);
+  isSame(date, unit = 'milliseconds') {
+    return isSame(this, date, unit);
   }
 
   isSameMillisecond(date) {
@@ -300,8 +317,8 @@ class DateTime extends Date {
     return isSameYear(this, date);
   }
 
-  isSameOrAfter(date) {
-    return isSameOrAfter(this, date);
+  isSameOrAfter(date, unit = 'milliseconds') {
+    return isSameOrAfter(this, date, unit);
   }
 
   isSameOrAfterMillisecond(date) {
@@ -332,8 +349,8 @@ class DateTime extends Date {
     return isSameOrAfterYear(this, date);
   }
 
-  isSameOrBefore(date) {
-    return isSameOrBefore(this, date);
+  isSameOrBefore(date, unit = 'milliseconds') {
+    return isSameOrBefore(this, date, unit);
   }
 
   isSameOrBeforeMillisecond(date) {
@@ -368,6 +385,10 @@ class DateTime extends Date {
     return isValid(this);
   }
 
+  startOf(unit = 'second') {
+    return startOf(this, unit);
+  }
+
   startOfSecond() {
     return startOfSecond(this);
   }
@@ -390,6 +411,10 @@ class DateTime extends Date {
 
   startOfYear() {
     return startOfYear(this);
+  }
+
+  subtract(amount, unit = 'milliseconds') {
+    return subtract(this, amount, unit);
   }
 
   subtractMilliseconds(amount) {

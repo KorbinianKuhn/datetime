@@ -5,16 +5,33 @@ const {
   MILLISECONDS_PER_DAY
 } = require('./internal/constants');
 const { smallerEqualOrBigger } = require('./internal/smallerEqualOrBigger');
+const { normalizeUnit } = require('./internal/normalizeUnit');
 
-exports.isBefore = (dateA, dateB) => {
-  return dateA.getTime() < dateB.getTime();
+exports.isBefore = (dateA, dateB, unit = 'milliseconds') => {
+  switch (normalizeUnit(unit)) {
+    case 'milliseconds':
+      return isBeforeMillisecond(dateA, dateB);
+    case 'seconds':
+      return isBeforeSecond(dateA, dateB);
+    case 'minutes':
+      return isBeforeMinute(dateA, dateB);
+    case 'hours':
+      return isBeforeHour(dateA, dateB);
+    case 'days':
+      return isBeforeDay(dateA, dateB);
+    case 'months':
+      return isBeforeMonth(dateA, dateB);
+    case 'years':
+      return isBeforeYear(dateA, dateB);
+  }
 };
 
-exports.isBeforeMillisecond = (dateA, dateB) => {
+const isBeforeMillisecond = (dateA, dateB) => {
   return dateA.getTime() < dateB.getTime();
 };
+exports.isBeforeMillisecond = isBeforeMillisecond;
 
-exports.isBeforeSecond = (dateA, dateB) => {
+const isBeforeSecond = (dateA, dateB) => {
   if (dateB.getTime() - dateA.getTime() >= MILLISECONDS_PER_SECOND) {
     return true;
   }
@@ -56,8 +73,9 @@ exports.isBeforeSecond = (dateA, dateB) => {
 
   return dateA.getSeconds() < dateB.getSeconds();
 };
+exports.isBeforeSecond = isBeforeSecond;
 
-exports.isBeforeMinute = (dateA, dateB) => {
+const isBeforeMinute = (dateA, dateB) => {
   if (dateB.getTime() - dateA.getTime() >= MILLISECONDS_PER_MINUTE) {
     return true;
   }
@@ -92,8 +110,9 @@ exports.isBeforeMinute = (dateA, dateB) => {
 
   return dateA.getMinutes() < dateB.getMinutes();
 };
+exports.isBeforeMinute = isBeforeMinute;
 
-exports.isBeforeHour = (dateA, dateB) => {
+const isBeforeHour = (dateA, dateB) => {
   if (dateB.getTime() - dateA.getTime() >= MILLISECONDS_PER_HOUR) {
     return true;
   }
@@ -121,8 +140,9 @@ exports.isBeforeHour = (dateA, dateB) => {
 
   return dateA.getHours() < dateB.getHours();
 };
+exports.isBeforeHour = isBeforeHour;
 
-exports.isBeforeDay = (dateA, dateB) => {
+const isBeforeDay = (dateA, dateB) => {
   if (dateB.getTime() - dateA.getTime() >= MILLISECONDS_PER_DAY) {
     return true;
   }
@@ -143,8 +163,9 @@ exports.isBeforeDay = (dateA, dateB) => {
 
   return dateA.getDate() < dateB.getDate();
 };
+exports.isBeforeDay = isBeforeDay;
 
-exports.isBeforeMonth = (dateA, dateB) => {
+const isBeforeMonth = (dateA, dateB) => {
   switch (smallerEqualOrBigger(dateA.getFullYear(), dateB.getFullYear())) {
     case -1:
       return true;
@@ -154,7 +175,9 @@ exports.isBeforeMonth = (dateA, dateB) => {
 
   return dateA.getMonth() < dateB.getMonth();
 };
+exports.isBeforeMonth = isBeforeMonth;
 
-exports.isBeforeYear = (dateA, dateB) => {
+const isBeforeYear = (dateA, dateB) => {
   return dateA.getFullYear() < dateB.getFullYear();
 };
+exports.isBeforeYear = isBeforeYear;

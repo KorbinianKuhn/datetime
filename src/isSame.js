@@ -1,12 +1,30 @@
-exports.isSame = (dateA, dateB) => {
-  return dateA.getTime() === dateB.getTime();
+const { normalizeUnit } = require('./internal/normalizeUnit');
+
+exports.isSame = (dateA, dateB, unit = 'millisecond') => {
+  switch (normalizeUnit(unit)) {
+    case 'milliseconds':
+      return isSameMillisecond(dateA, dateB);
+    case 'seconds':
+      return isSameSecond(dateA, dateB);
+    case 'minutes':
+      return isSameMinute(dateA, dateB);
+    case 'hours':
+      return isSameHour(dateA, dateB);
+    case 'days':
+      return isSameDay(dateA, dateB);
+    case 'months':
+      return isSameMonth(dateA, dateB);
+    case 'years':
+      return isSameYear(dateA, dateB);
+  }
 };
 
-exports.isSameMillisecond = (dateA, dateB) => {
+const isSameMillisecond = (dateA, dateB) => {
   return dateA.getTime() === dateB.getTime();
 };
+exports.isSameMillisecond = isSameMillisecond;
 
-exports.isSameSecond = (dateA, dateB) => {
+const isSameSecond = (dateA, dateB) => {
   return (
     dateA.getFullYear() === dateB.getFullYear() &&
     dateA.getMonth() === dateB.getMonth() &&
@@ -16,8 +34,9 @@ exports.isSameSecond = (dateA, dateB) => {
     dateA.getSeconds() === dateB.getSeconds()
   );
 };
+exports.isSameSecond = isSameSecond;
 
-exports.isSameMinute = (dateA, dateB) => {
+const isSameMinute = (dateA, dateB) => {
   return (
     dateA.getFullYear() === dateB.getFullYear() &&
     dateA.getMonth() === dateB.getMonth() &&
@@ -26,8 +45,9 @@ exports.isSameMinute = (dateA, dateB) => {
     dateA.getMinutes() === dateB.getMinutes()
   );
 };
+exports.isSameMinute = isSameMinute;
 
-exports.isSameHour = (dateA, dateB) => {
+const isSameHour = (dateA, dateB) => {
   return (
     dateA.getFullYear() === dateB.getFullYear() &&
     dateA.getMonth() === dateB.getMonth() &&
@@ -35,22 +55,26 @@ exports.isSameHour = (dateA, dateB) => {
     dateA.getHours() === dateB.getHours()
   );
 };
+exports.isSameHour = isSameHour;
 
-exports.isSameDay = (dateA, dateB) => {
+const isSameDay = (dateA, dateB) => {
   return (
     dateA.getFullYear() === dateB.getFullYear() &&
     dateA.getMonth() === dateB.getMonth() &&
     dateA.getDate() === dateB.getDate()
   );
 };
+exports.isSameDay = isSameDay;
 
-exports.isSameMonth = (dateA, dateB) => {
+const isSameMonth = (dateA, dateB) => {
   return (
     dateA.getFullYear() === dateB.getFullYear() &&
     dateA.getMonth() === dateB.getMonth()
   );
 };
+exports.isSameMonth = isSameMonth;
 
-exports.isSameYear = (dateA, dateB) => {
+const isSameYear = (dateA, dateB) => {
   return dateA.getFullYear() === dateB.getFullYear();
 };
+exports.isSameYear = isSameYear;

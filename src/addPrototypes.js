@@ -1,5 +1,6 @@
 const { addPrototype } = require('./internal/addPrototype');
 const {
+  add,
   addMilliseconds,
   addSeconds,
   addMinutes,
@@ -12,6 +13,7 @@ const { clone } = require('./clone');
 const { daysInMonth } = require('./daysInMonth');
 const { daysInYear } = require('./daysInYear');
 const {
+  difference,
   differenceInMilliseconds,
   differenceInSeconds,
   differenceInMinutes,
@@ -21,6 +23,7 @@ const {
   differenceInYears
 } = require('./diff');
 const {
+  endOf,
   endOfSecond,
   endOfMinute,
   endOfHour,
@@ -81,6 +84,7 @@ const {
 } = require('./isSameOrBefore');
 const { isValid } = require('./isValid');
 const {
+  startOf,
   startOfSecond,
   startOfMinute,
   startOfHour,
@@ -89,6 +93,7 @@ const {
   startOfYear
 } = require('./startOf');
 const {
+  subtract,
   subtractMilliseconds,
   subtractSeconds,
   subtractMinutes,
@@ -101,6 +106,10 @@ const { toUTC } = require('./toUTC');
 const { unix } = require('./unix');
 
 exports.addPrototypes = () => {
+  addPrototype('add', function(amount, unit = 'milliseconds') {
+    return add(this, amount, unit);
+  });
+
   addPrototype('addMilliseconds', function(amount) {
     return addMilliseconds(this, amount);
   });
@@ -141,6 +150,10 @@ exports.addPrototypes = () => {
     return daysInYear(this);
   });
 
+  addPrototype('difference', function(date, unit = 'milliseconds') {
+    return difference(this, date, unit);
+  });
+
   addPrototype('differenceInMilliseconds', function(date) {
     return differenceInMilliseconds(this, date);
   });
@@ -169,6 +182,10 @@ exports.addPrototypes = () => {
     return differenceInYears(this, date);
   });
 
+  addPrototype('endOf', function(unit = 'second') {
+    return endOf(this, unit);
+  });
+
   addPrototype('endOfSecond', function() {
     return endOfSecond(this);
   });
@@ -193,8 +210,8 @@ exports.addPrototypes = () => {
     return endOfYear(this);
   });
 
-  addPrototype('isAfter', function(date) {
-    return isAfter(this, date);
+  addPrototype('isAfter', function(date, unit = 'millisecond') {
+    return isAfter(this, date, unit);
   });
 
   addPrototype('isAfterMillisecond', function(date) {
@@ -225,8 +242,8 @@ exports.addPrototypes = () => {
     return isAfterYear(this, date);
   });
 
-  addPrototype('isBefore', function(date) {
-    return isBefore(this, date);
+  addPrototype('isBefore', function(date, unit = 'millisecond') {
+    return isBefore(this, date, unit);
   });
 
   addPrototype('isBeforeMillisecond', function(date) {
@@ -261,8 +278,8 @@ exports.addPrototypes = () => {
     return isLeapYear(this);
   });
 
-  addPrototype('isSame', function(date) {
-    return isSame(this, date);
+  addPrototype('isSame', function(date, unit = 'millisecond') {
+    return isSame(this, date, unit);
   });
 
   addPrototype('isSameMillisecond', function(date) {
@@ -293,8 +310,8 @@ exports.addPrototypes = () => {
     return isSameYear(this, date);
   });
 
-  addPrototype('isSameOrAfter', function(date) {
-    return isSameOrAfter(this, date);
+  addPrototype('isSameOrAfter', function(date, unit = 'millisecond') {
+    return isSameOrAfter(this, date, unit);
   });
 
   addPrototype('isSameOrAfterMillisecond', function(date) {
@@ -325,8 +342,8 @@ exports.addPrototypes = () => {
     return isSameOrAfterYear(this, date);
   });
 
-  addPrototype('isSameOrBefore', function(date) {
-    return isSameOrBefore(this, date);
+  addPrototype('isSameOrBefore', function(date, unit = 'millisecond') {
+    return isSameOrBefore(this, date, unit);
   });
 
   addPrototype('isSameOrBeforeMillisecond', function(date) {
@@ -361,6 +378,10 @@ exports.addPrototypes = () => {
     return isValid(this);
   });
 
+  addPrototype('startOf', function(unit = 'second') {
+    return startOf(this, unit);
+  });
+
   addPrototype('startOfSecond', function() {
     return startOfSecond(this);
   });
@@ -383,6 +404,10 @@ exports.addPrototypes = () => {
 
   addPrototype('startOfYear', function() {
     return startOfYear(this);
+  });
+
+  addPrototype('subtract', function(amount, unit = 'milliseconds') {
+    return subtract(this, amount, unit);
   });
 
   addPrototype('subtractMilliseconds', function(amount) {

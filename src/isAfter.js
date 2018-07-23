@@ -5,16 +5,33 @@ const {
   MILLISECONDS_PER_DAY
 } = require('./internal/constants');
 const { smallerEqualOrBigger } = require('./internal/smallerEqualOrBigger');
+const { normalizeUnit } = require('./internal/normalizeUnit');
 
-exports.isAfter = (dateA, dateB) => {
-  return dateA.getTime() > dateB.getTime();
+exports.isAfter = (dateA, dateB, unit = 'milliseconds') => {
+  switch (normalizeUnit(unit)) {
+    case 'milliseconds':
+      return isAfterMillisecond(dateA, dateB);
+    case 'seconds':
+      return isAfterSecond(dateA, dateB);
+    case 'minutes':
+      return isAfterMinute(dateA, dateB);
+    case 'hours':
+      return isAfterHour(dateA, dateB);
+    case 'days':
+      return isAfterDay(dateA, dateB);
+    case 'months':
+      return isAfterMonth(dateA, dateB);
+    case 'years':
+      return isAfterYear(dateA, dateB);
+  }
 };
 
-exports.isAfterMillisecond = (dateA, dateB) => {
+const isAfterMillisecond = (dateA, dateB) => {
   return dateA.getTime() > dateB.getTime();
 };
+exports.isAfterMillisecond = isAfterMillisecond;
 
-exports.isAfterSecond = (dateA, dateB) => {
+const isAfterSecond = (dateA, dateB) => {
   if (dateA.getTime() - dateB.getTime() >= MILLISECONDS_PER_SECOND) {
     return true;
   }
@@ -56,8 +73,9 @@ exports.isAfterSecond = (dateA, dateB) => {
 
   return dateA.getSeconds() > dateB.getSeconds();
 };
+exports.isAfterSecond = isAfterSecond;
 
-exports.isAfterMinute = (dateA, dateB) => {
+const isAfterMinute = (dateA, dateB) => {
   if (dateA.getTime() - dateB.getTime() >= MILLISECONDS_PER_MINUTE) {
     return true;
   }
@@ -92,8 +110,9 @@ exports.isAfterMinute = (dateA, dateB) => {
 
   return dateA.getMinutes() > dateB.getMinutes();
 };
+exports.isAfterMinute = isAfterMinute;
 
-exports.isAfterHour = (dateA, dateB) => {
+const isAfterHour = (dateA, dateB) => {
   if (dateA.getTime() - dateB.getTime() >= MILLISECONDS_PER_HOUR) {
     return true;
   }
@@ -121,8 +140,9 @@ exports.isAfterHour = (dateA, dateB) => {
 
   return dateA.getHours() > dateB.getHours();
 };
+exports.isAfterHour = isAfterHour;
 
-exports.isAfterDay = (dateA, dateB) => {
+const isAfterDay = (dateA, dateB) => {
   if (dateA.getTime() - dateB.getTime() >= MILLISECONDS_PER_DAY) {
     return true;
   }
@@ -143,8 +163,9 @@ exports.isAfterDay = (dateA, dateB) => {
 
   return dateA.getDate() > dateB.getDate();
 };
+exports.isAfterDay = isAfterDay;
 
-exports.isAfterMonth = (dateA, dateB) => {
+const isAfterMonth = (dateA, dateB) => {
   switch (smallerEqualOrBigger(dateA.getFullYear(), dateB.getFullYear())) {
     case -1:
       return false;
@@ -154,7 +175,9 @@ exports.isAfterMonth = (dateA, dateB) => {
 
   return dateA.getMonth() > dateB.getMonth();
 };
+exports.isAfterMonth = isAfterMonth;
 
-exports.isAfterYear = (dateA, dateB) => {
+const isAfterYear = (dateA, dateB) => {
   return dateA.getFullYear() > dateB.getFullYear();
 };
+exports.isAfterYear = isAfterYear;

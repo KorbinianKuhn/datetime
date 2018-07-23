@@ -5,16 +5,33 @@ const {
   MILLISECONDS_PER_DAY
 } = require('./internal/constants');
 const { smallerEqualOrBigger } = require('./internal/smallerEqualOrBigger');
+const { normalizeUnit } = require('./internal/normalizeUnit');
 
-exports.isSameOrBefore = (dateA, dateB) => {
-  return dateA.getTime() <= dateB.getTime();
+exports.isSameOrBefore = (dateA, dateB, unit = 'millisecond') => {
+  switch (normalizeUnit(unit)) {
+    case 'milliseconds':
+      return isSameOrBeforeMillisecond(dateA, dateB);
+    case 'seconds':
+      return isSameOrBeforeSecond(dateA, dateB);
+    case 'minutes':
+      return isSameOrBeforeMinute(dateA, dateB);
+    case 'hours':
+      return isSameOrBeforeHour(dateA, dateB);
+    case 'days':
+      return isSameOrBeforeDay(dateA, dateB);
+    case 'months':
+      return isSameOrBeforeMonth(dateA, dateB);
+    case 'years':
+      return isSameOrBeforeYear(dateA, dateB);
+  }
 };
 
-exports.isSameOrBeforeMillisecond = (dateA, dateB) => {
+const isSameOrBeforeMillisecond = (dateA, dateB) => {
   return dateA.getTime() <= dateB.getTime();
 };
+exports.isSameOrBeforeMillisecond = isSameOrBeforeMillisecond;
 
-exports.isSameOrBeforeSecond = (dateA, dateB) => {
+const isSameOrBeforeSecond = (dateA, dateB) => {
   if (dateB.getTime() - dateA.getTime() >= MILLISECONDS_PER_SECOND) {
     return true;
   }
@@ -56,8 +73,9 @@ exports.isSameOrBeforeSecond = (dateA, dateB) => {
 
   return dateA.getSeconds() <= dateB.getSeconds();
 };
+exports.isSameOrBeforeSecond = isSameOrBeforeSecond;
 
-exports.isSameOrBeforeMinute = (dateA, dateB) => {
+const isSameOrBeforeMinute = (dateA, dateB) => {
   if (dateB.getTime() - dateA.getTime() >= MILLISECONDS_PER_MINUTE) {
     return true;
   }
@@ -92,8 +110,9 @@ exports.isSameOrBeforeMinute = (dateA, dateB) => {
 
   return dateA.getMinutes() <= dateB.getMinutes();
 };
+exports.isSameOrBeforeMinute = isSameOrBeforeMinute;
 
-exports.isSameOrBeforeHour = (dateA, dateB) => {
+const isSameOrBeforeHour = (dateA, dateB) => {
   if (dateB.getTime() - dateA.getTime() >= MILLISECONDS_PER_HOUR) {
     return true;
   }
@@ -121,8 +140,9 @@ exports.isSameOrBeforeHour = (dateA, dateB) => {
 
   return dateA.getHours() <= dateB.getHours();
 };
+exports.isSameOrBeforeHour = isSameOrBeforeHour;
 
-exports.isSameOrBeforeDay = (dateA, dateB) => {
+const isSameOrBeforeDay = (dateA, dateB) => {
   if (dateB.getTime() - dateA.getTime() >= MILLISECONDS_PER_DAY) {
     return true;
   }
@@ -143,8 +163,9 @@ exports.isSameOrBeforeDay = (dateA, dateB) => {
 
   return dateA.getDate() <= dateB.getDate();
 };
+exports.isSameOrBeforeDay = isSameOrBeforeDay;
 
-exports.isSameOrBeforeMonth = (dateA, dateB) => {
+const isSameOrBeforeMonth = (dateA, dateB) => {
   switch (smallerEqualOrBigger(dateA.getFullYear(), dateB.getFullYear())) {
     case -1:
       return true;
@@ -154,7 +175,9 @@ exports.isSameOrBeforeMonth = (dateA, dateB) => {
 
   return dateA.getMonth() <= dateB.getMonth();
 };
+exports.isSameOrBeforeMonth = isSameOrBeforeMonth;
 
-exports.isSameOrBeforeYear = (dateA, dateB) => {
+const isSameOrBeforeYear = (dateA, dateB) => {
   return dateA.getFullYear() <= dateB.getFullYear();
 };
+exports.isSameOrBeforeYear = isSameOrBeforeYear;

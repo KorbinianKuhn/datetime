@@ -5,16 +5,33 @@ const {
   MILLISECONDS_PER_DAY
 } = require('./internal/constants');
 const { smallerEqualOrBigger } = require('./internal/smallerEqualOrBigger');
+const { normalizeUnit } = require('./internal/normalizeUnit');
 
-exports.isSameOrAfter = (dateA, dateB) => {
-  return dateA.getTime() >= dateB.getTime();
+exports.isSameOrAfter = (dateA, dateB, unit = 'millisecond') => {
+  switch (normalizeUnit(unit)) {
+    case 'milliseconds':
+      return isSameOrAfterMillisecond(dateA, dateB);
+    case 'seconds':
+      return isSameOrAfterSecond(dateA, dateB);
+    case 'minutes':
+      return isSameOrAfterMinute(dateA, dateB);
+    case 'hours':
+      return isSameOrAfterHour(dateA, dateB);
+    case 'days':
+      return isSameOrAfterDay(dateA, dateB);
+    case 'months':
+      return isSameOrAfterMonth(dateA, dateB);
+    case 'years':
+      return isSameOrAfterYear(dateA, dateB);
+  }
 };
 
-exports.isSameOrAfterMillisecond = (dateA, dateB) => {
+const isSameOrAfterMillisecond = (dateA, dateB) => {
   return dateA.getTime() >= dateB.getTime();
 };
+exports.isSameOrAfterMillisecond = isSameOrAfterMillisecond;
 
-exports.isSameOrAfterSecond = (dateA, dateB) => {
+const isSameOrAfterSecond = (dateA, dateB) => {
   if (dateA.getTime() - dateB.getTime() >= MILLISECONDS_PER_SECOND) {
     return true;
   }
@@ -56,8 +73,9 @@ exports.isSameOrAfterSecond = (dateA, dateB) => {
 
   return dateA.getSeconds() >= dateB.getSeconds();
 };
+exports.isSameOrAfterSecond = isSameOrAfterSecond;
 
-exports.isSameOrAfterMinute = (dateA, dateB) => {
+const isSameOrAfterMinute = (dateA, dateB) => {
   if (dateA.getTime() - dateB.getTime() >= MILLISECONDS_PER_MINUTE) {
     return true;
   }
@@ -92,8 +110,9 @@ exports.isSameOrAfterMinute = (dateA, dateB) => {
 
   return dateA.getMinutes() >= dateB.getMinutes();
 };
+exports.isSameOrAfterMinute = isSameOrAfterMinute;
 
-exports.isSameOrAfterHour = (dateA, dateB) => {
+const isSameOrAfterHour = (dateA, dateB) => {
   if (dateA.getTime() - dateB.getTime() >= MILLISECONDS_PER_HOUR) {
     return true;
   }
@@ -121,8 +140,9 @@ exports.isSameOrAfterHour = (dateA, dateB) => {
 
   return dateA.getHours() >= dateB.getHours();
 };
+exports.isSameOrAfterHour = isSameOrAfterHour;
 
-exports.isSameOrAfterDay = (dateA, dateB) => {
+const isSameOrAfterDay = (dateA, dateB) => {
   if (dateA.getTime() - dateB.getTime() >= MILLISECONDS_PER_DAY) {
     return true;
   }
@@ -143,8 +163,9 @@ exports.isSameOrAfterDay = (dateA, dateB) => {
 
   return dateA.getDate() >= dateB.getDate();
 };
+exports.isSameOrAfterDay = isSameOrAfterDay;
 
-exports.isSameOrAfterMonth = (dateA, dateB) => {
+const isSameOrAfterMonth = (dateA, dateB) => {
   switch (smallerEqualOrBigger(dateA.getFullYear(), dateB.getFullYear())) {
     case -1:
       return false;
@@ -154,7 +175,9 @@ exports.isSameOrAfterMonth = (dateA, dateB) => {
 
   return dateA.getMonth() >= dateB.getMonth();
 };
+exports.isSameOrAfterMonth = isSameOrAfterMonth;
 
-exports.isSameOrAfterYear = (dateA, dateB) => {
+const isSameOrAfterYear = (dateA, dateB) => {
   return dateA.getFullYear() >= dateB.getFullYear();
 };
+exports.isSameOrAfterYear = isSameOrAfterYear;

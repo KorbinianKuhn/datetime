@@ -7,6 +7,6 @@ describe('addProtoypes()', () => {
     }).not.toThrow();
     expect(() => {
       datetime.addPrototypes();
-    }).toThrowError('addMilliseconds is already a prototype of Date');
+    }).toThrowError('add is already a prototype of Date');
   });
 });

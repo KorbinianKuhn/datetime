@@ -8,30 +8,58 @@ const {
   addYears
 } = require('./add');
 
-exports.subtractMilliseconds = (date, amount) => {
+const { normalizeUnit } = require('./internal/normalizeUnit');
+
+exports.subtract = (date, amount, unit = 'milliseconds') => {
+  switch (normalizeUnit(unit)) {
+    case 'milliseconds':
+      return subtractMilliseconds(date, amount);
+    case 'seconds':
+      return subtractSeconds(date, amount);
+    case 'minutes':
+      return subtractMinutes(date, amount);
+    case 'hours':
+      return subtractHours(date, amount);
+    case 'days':
+      return subtractDays(date, amount);
+    case 'months':
+      return subtractMonths(date, amount);
+    case 'years':
+      return subtractYears(date, amount);
+  }
+};
+
+const subtractMilliseconds = (date, amount) => {
   return addMilliseconds(date, (amount *= -1));
 };
+exports.subtractMilliseconds = subtractMilliseconds;
 
-exports.subtractSeconds = (date, amount) => {
+const subtractSeconds = (date, amount) => {
   return addSeconds(date, (amount *= -1));
 };
+exports.subtractSeconds = subtractSeconds;
 
-exports.subtractMinutes = (date, amount) => {
+const subtractMinutes = (date, amount) => {
   return addMinutes(date, (amount *= -1));
 };
+exports.subtractMinutes = subtractMinutes;
 
-exports.subtractHours = (date, amount) => {
+const subtractHours = (date, amount) => {
   return addHours(date, (amount *= -1));
 };
+exports.subtractHours = subtractHours;
 
-exports.subtractDays = (date, amount) => {
+const subtractDays = (date, amount) => {
   return addDays(date, (amount *= -1));
 };
+exports.subtractDays = subtractDays;
 
-exports.subtractMonths = (date, amount) => {
+const subtractMonths = (date, amount) => {
   return addMonths(date, (amount *= -1));
 };
+exports.subtractMonths = subtractMonths;
 
-exports.subtractYears = (date, amount) => {
+const subtractYears = (date, amount) => {
   return addYears(date, (amount *= -1));
 };
+exports.subtractYears = subtractYears;

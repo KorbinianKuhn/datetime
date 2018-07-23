@@ -11,6 +11,8 @@
 
 High performance date manipulations.
 
+This library just provides human readable functions for simple, mostly mathematical date operations. All operations are expecting a valid date object and do not check their input arguments to provide maximum performance. If you want immutability, use the ```clone``` function.
+
 There are already a lot of very good libraries like momentjs, date-fns, dayjs or instadate.
 
 Use this library, if you want:
@@ -22,8 +24,6 @@ Don't use this library, if you need:
 
 - language internationalization
 - date input or output parsing support for various non-standard formats
-
-This library just provides human readable functions for simple, mostly mathematical date operations. All operations are expecting a valid date object and do not check their input arguments to provide maximum performance. If you want immutability, use the ```clone``` function.
 
 All functions are tested against momentjs operations.
 
@@ -107,6 +107,7 @@ Add interval to date.
 
 | Functional                          | Prototype / datetime                            |
 | ----------------------------------- | ----------------------------------------------- |
+| ```add(date, amount, unit)```       | ```(Date / datetime).add(amount, unit)```       |
 | ```addMilliseconds(date, amount)``` | ```(Date / datetime).addMilliseconds(amount)``` |
 | ```addSeconds(date, amount)```      | ```(Date / datetime).addSeconds(amount)```      |
 | ```addMinutes(date, amount)```      | ```(Date / datetime).addMinutes(amount)```      |
@@ -149,6 +150,7 @@ Get the difference between two dates.
 
 | Functional                                   | Prototype / datetime                                    |
 | -------------------------------------------- | ------------------------------------------------------- |
+| ```difference(dateA, dateB, unit)```         | ```(Date / datetime).difference(dateB, unit)```         |
 | ```differenceInMilliseconds(dateA, dateB)``` | ```(Date / datetime).differenceInMilliseconds(dateB)``` |
 | ```differenceInSeconds(dateA, dateB)```      | ```(Date / datetime).differenceInSeconds(dateB)```      |
 | ```differenceInMinutes(dateA, dateB)```      | ```(Date / datetime).differenceInMinutes(dateB)```      |
@@ -161,15 +163,15 @@ Get the difference between two dates.
 
 Set date to end of given interval.
 
-| Functional                   | Prototype / datetime                       |
-| ---------------------------- | ------------------------------------------ |
-| ```endOfMillisecond(date)``` | ```(Date / datetime).endOfMillisecond()``` |
-| ```endOfSecond(date)```      | ```(Date / datetime).endOfSecond()```      |
-| ```endOfMinute(date)```      | ```(Date / datetime).endOfMinute()```      |
-| ```endOfHour(date)```        | ```(Date / datetime).endOfHour()```        |
-| ```endOfDay(date)```         | ```(Date / datetime).endOfDay()```         |
-| ```endOfMonth(date)```       | ```(Date / datetime).endOfMonth()```       |
-| ```endOfYear(date)```        | ```(Date / datetime).endOfYear()```        |
+| Functional              | Prototype / datetime                  |
+| ----------------------- | ------------------------------------- |
+| ```endOf(date, unit)``` | ```(Date / datetime).endOf(unit)```   |
+| ```endOfSecond(date)``` | ```(Date / datetime).endOfSecond()``` |
+| ```endOfMinute(date)``` | ```(Date / datetime).endOfMinute()``` |
+| ```endOfHour(date)```   | ```(Date / datetime).endOfHour()```   |
+| ```endOfDay(date)```    | ```(Date / datetime).endOfDay()```    |
+| ```endOfMonth(date)```  | ```(Date / datetime).endOfMonth()```  |
+| ```endOfYear(date)```   | ```(Date / datetime).endOfYear()```   |
 
 ### isAfter*
 
@@ -177,7 +179,7 @@ Check if date is after another date.
 
 | Functional                             | Prototype / datetime                              |
 | -------------------------------------- | ------------------------------------------------- |
-| ```isAfter(dateA, dateB)```            | ```(Date / datetime).isAfter(dateB)```            |
+| ```isAfter(dateA, dateB, unit)```      | ```(Date / datetime).isAfter(dateB, unit)```      |
 | ```isAfterMillisecond(dateA, dateB)``` | ```(Date / datetime).isAfterMillisecond(dateB)``` |
 | ```isAfterSecond(dateA, dateB)```      | ```(Date / datetime).isAfterSecond(dateB)```      |
 | ```isAfterMinute(dateA, dateB)```      | ```(Date / datetime).isAfterMinute(dateB)```      |
@@ -192,7 +194,7 @@ Check if date is before another date.
 
 | Functional                              | Prototype / datetime                               |
 | --------------------------------------- | -------------------------------------------------- |
-| ```isBefore(dateA, dateB)```            | ```(Date / datetime).isBefore(dateB)```            |
+| ```isBefore(dateA, dateB, unit)```      | ```(Date / datetime).isBefore(dateB, unit)```      |
 | ```isBeforeMillisecond(dateA, dateB)``` | ```(Date / datetime).isBeforeMillisecond(dateB)``` |
 | ```isBeforeSecond(dateA, dateB)```      | ```(Date / datetime).isBeforeSecond(dateB)```      |
 | ```isBeforeMinute(dateA, dateB)```      | ```(Date / datetime).isBeforeMinute(dateB)```      |
@@ -215,7 +217,7 @@ Check if date is same as another date.
 
 | Functional                            | Prototype / datetime                             |
 | ------------------------------------- | ------------------------------------------------ |
-| ```isSame(dateA, dateB)```            | ```(Date / datetime).isSame(dateB)```            |
+| ```isSame(dateA, dateB, unit)```      | ```(Date / datetime).isSame(dateB, unit)```      |
 | ```isSameMillisecond(dateA, dateB)``` | ```(Date / datetime).isSameMillisecond(dateB)``` |
 | ```isSameSecond(dateA, dateB)```      | ```(Date / datetime).isSameSecond(dateB)```      |
 | ```isSameMinute(dateA, dateB)```      | ```(Date / datetime).isSameMinute(dateB)```      |
@@ -230,7 +232,7 @@ Check if date is same as or after another date.
 
 | Functional                                   | Prototype / datetime                                    |
 | -------------------------------------------- | ------------------------------------------------------- |
-| ```isSameOrAfter(dateA, dateB)```            | ```(Date / datetime).isSameOrAfter(dateB)```            |
+| ```isSameOrAfter(dateA, dateB, unit)```      | ```(Date / datetime).isSameOrAfter(dateB, unit)```      |
 | ```isSameOrAfterMillisecond(dateA, dateB)``` | ```(Date / datetime).isSameOrAfterMillisecond(dateB)``` |
 | ```isSameOrAfterSecond(dateA, dateB)```      | ```(Date / datetime).isSameOrAfterSecond(dateB)```      |
 | ```isSameOrAfterMinute(dateA, dateB)```      | ```(Date / datetime).isSameOrAfterMinute(dateB)```      |
@@ -245,7 +247,7 @@ Check if date is same as or before another date.
 
 | Functional                                    | Prototype / datetime                                     |
 | --------------------------------------------- | -------------------------------------------------------- |
-| ```isSameOrBefore(dateA, dateB)```            | ```(Date / datetime).isSameOrBefore(dateB)```            |
+| ```isSameOrBefore(dateA, dateB, unit)```      | ```(Date / datetime).isSameOrBefore(dateB, unit)```      |
 | ```isSameOrBeforeMillisecond(dateA, dateB)``` | ```(Date / datetime).isSameOrBeforeMillisecond(dateB)``` |
 | ```isSameOrBeforeSecond(dateA, dateB)```      | ```(Date / datetime).isSameOrBeforeSecond(dateB)```      |
 | ```isSameOrBeforeMinute(dateA, dateB)```      | ```(Date / datetime).isSameOrBeforeMinute(dateB)```      |
@@ -266,15 +268,15 @@ Check if date is valid.
 
 Set date to end of given interval.
 
-| Functional                     | Prototype / datetime                         |
-| ------------------------------ | -------------------------------------------- |
-| ```startOfMillisecond(date)``` | ```(Date / datetime).startOfMillisecond()``` |
-| ```startOfSecond(date)```      | ```(Date / datetime).startOfSecond()```      |
-| ```startOfMinute(date)```      | ```(Date / datetime).startOfMinute()```      |
-| ```startOfHour(date)```        | ```(Date / datetime).startOfHour()```        |
-| ```startOfDay(date)```         | ```(Date / datetime).startOfDay()```         |
-| ```startOfMonth(date)```       | ```(Date / datetime).startOfMonth()```       |
-| ```startOfYear(date)```        | ```(Date / datetime).startOfYear()```        |
+| Functional                | Prototype / datetime                    |
+| ------------------------- | --------------------------------------- |
+| ```startOf(date, unit)``` | ```(Date / datetime).startOf(unit)```   |
+| ```startOfSecond(date)``` | ```(Date / datetime).startOfSecond()``` |
+| ```startOfMinute(date)``` | ```(Date / datetime).startOfMinute()``` |
+| ```startOfHour(date)```   | ```(Date / datetime).startOfHour()```   |
+| ```startOfDay(date)```    | ```(Date / datetime).startOfDay()```    |
+| ```startOfMonth(date)```  | ```(Date / datetime).startOfMonth()```  |
+| ```startOfYear(date)```   | ```(Date / datetime).startOfYear()```   |
 
 ### subtract*
 
@@ -282,6 +284,7 @@ Subtract interval from date.
 
 | Functional                               | Prototype / datetime                                 |
 | ---------------------------------------- | ---------------------------------------------------- |
+| ```subtract(date, amount, unit)```       | ```(Date / datetime).subtract(amount, unit)```       |
 | ```subtractMilliseconds(date, amount)``` | ```(Date / datetime).subtractMilliseconds(amount)``` |
 | ```subtractSeconds(date, amount)```      | ```(Date / datetime).subtractSeconds(amount)```      |
 | ```subtractMinutes(date, amount)```      | ```(Date / datetime).subtractMinutes(amount)```      |

@@ -57,21 +57,7 @@ const differenceInMinutes = (dateA, dateB) => {
 exports.differenceInMinutes = differenceInMinutes;
 
 const differenceInHours = (dateA, dateB) => {
-  return Math.floor(
-    (Date.UTC(
-      dateA.getFullYear(),
-      dateA.getMonth(),
-      dateA.getDate(),
-      dateA.getHours()
-    ) -
-      Date.UTC(
-        dateB.getFullYear(),
-        dateB.getMonth(),
-        dateB.getDate(),
-        dateB.getHours()
-      )) /
-      MILLISECONDS_PER_HOUR
-  );
+  return Math.floor((dateA - dateB) / MILLISECONDS_PER_HOUR);
 };
 exports.differenceInHours = differenceInHours;
 

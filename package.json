@@ -9,8 +9,8 @@
     "clean": "shx rm -rf dist",
     "test": "jest test/**",
     "test:coverage": "jest --coverage",
-    "lint": "tslint *.ts src/** && eslint *.js test/**",
-    "lint:fix": "tslint *.ts src/** --fix &&  eslint *.js test/** --fix",
+    "lint": "tslint src/**/*.ts && eslint test/**/*.js",
+    "lint:fix": "tslint src/**/*.ts --fix && eslint test/**/*.js --fix",
     "precommit": "npm audit && lint-staged && npm build && npm test"
   },
   "repository": {

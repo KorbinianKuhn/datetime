@@ -1,16 +1,12 @@
 const moment = require('moment');
-const datetime = require('./../index');
+const datetime = require('./../dist');
 
-datetime.addPrototypes();
-
-describe('getQuarter functions', () => {
+describe('getQuarter()', () => {
   it('should be first quarter', () => {
     const date = new Date('2017-02-01T00:00:00.000Z');
     const expectedQuarter = 1;
 
     expect(moment(date).quarter()).toEqual(expectedQuarter);
-    expect(datetime.getQuarter(date)).toEqual(expectedQuarter);
-    expect(date.getQuarter()).toEqual(expectedQuarter);
     expect(datetime(date).getQuarter()).toEqual(expectedQuarter);
   });
 
@@ -19,8 +15,6 @@ describe('getQuarter functions', () => {
     const expectedQuarter = 2;
 
     expect(moment(date).quarter()).toEqual(expectedQuarter);
-    expect(datetime.getQuarter(date)).toEqual(expectedQuarter);
-    expect(date.getQuarter()).toEqual(expectedQuarter);
     expect(datetime(date).getQuarter()).toEqual(expectedQuarter);
   });
 
@@ -29,8 +23,6 @@ describe('getQuarter functions', () => {
     const expectedQuarter = 3;
 
     expect(moment(date).quarter()).toEqual(expectedQuarter);
-    expect(datetime.getQuarter(date)).toEqual(expectedQuarter);
-    expect(date.getQuarter()).toEqual(expectedQuarter);
     expect(datetime(date).getQuarter()).toEqual(expectedQuarter);
   });
 
@@ -39,8 +31,6 @@ describe('getQuarter functions', () => {
     const expectedQuarter = 4;
 
     expect(moment(date).quarter()).toEqual(expectedQuarter);
-    expect(datetime.getQuarter(date)).toEqual(expectedQuarter);
-    expect(date.getQuarter()).toEqual(expectedQuarter);
     expect(datetime(date).getQuarter()).toEqual(expectedQuarter);
   });
 });

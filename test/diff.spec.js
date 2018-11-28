@@ -1,25 +1,14 @@
 const moment = require('moment');
-const datetime = require('./../index');
+const datetime = require('../dist');
 
-datetime.addPrototypes();
-
-describe('difference functions', () => {
+describe('diff()', () => {
   const dates = [
     new Date('2017-01-01T00:00:00.000Z'),
     new Date('2018-01-01T00:00:00.000Z'),
     new Date('2019-01-01T00:00:00.000Z')
   ];
-  const functionNames = [
-    'differenceInMilliseconds',
-    'differenceInSeconds',
-    'differenceInMinutes',
-    'differenceInHours',
-    'differenceInDays',
-    'differenceInMonths',
-    'differenceInQuarters',
-    'differenceInYears'
-  ];
-  const momentIntervals = [
+
+  const units = [
     'millisecond',
     'second',
     'minute',
@@ -30,19 +19,15 @@ describe('difference functions', () => {
     'year'
   ];
 
-  const dateA = new Date('2018-01-01T00:00:00.000Z');
+  const dateB = new Date('2018-01-01T00:00:00.000Z');
 
-  for (let i = 0; i < functionNames.length; i++) {
-    const functionName = functionNames[i];
-    const momentInterval = momentIntervals[i];
-    for (const dateB of dates) {
-      const expected = moment(dateA).diff(moment(dateB), momentInterval);
-
-      it(`${functionName} should verify`, () => {
-        expect(datetime[functionName](dateA, dateB)).toEqual(expected);
-        expect(dateA[functionName](dateB)).toEqual(expected);
-        expect(datetime(dateA)[functionName](dateB)).toEqual(expected);
+  units.map(unit => {
+    dates.map(date => {
+      it(`with unit ${unit} and date ${date.toISOString()} should verify`, () => {
+        const expected = moment(date).diff(dateB, unit);
+        const actual = datetime(date).diff(dateB, unit);
+        expect(actual).toEqual(expected);
       });
-    }
-  }
+    });
+  });
 });

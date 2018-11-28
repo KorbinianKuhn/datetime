@@ -1,9 +1,10 @@
-.vscode
 coverage
 node_modules
+src
 test
-.eslintrc
 .gitignore
-.travis.yml
+.eslintrc
 .prettierrc
-README.md
+.travis.yml
+tsconfig.json
+tslint.json

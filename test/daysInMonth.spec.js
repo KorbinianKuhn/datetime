@@ -1,16 +1,12 @@
 const moment = require('moment');
-const datetime = require('./../index');
+const datetime = require('./../dist');
 
-datetime.addPrototypes();
-
-describe('daysInMonth functions', () => {
+describe('daysInMonth()', () => {
   it('should have num days of februar in normal year', () => {
     const date = new Date('2017-02-01T00:00:00.000Z');
     const expectedDaysInMonth = 28;
 
     expect(moment(date).daysInMonth()).toEqual(expectedDaysInMonth);
-    expect(datetime.daysInMonth(date)).toEqual(expectedDaysInMonth);
-    expect(date.daysInMonth()).toEqual(expectedDaysInMonth);
     expect(datetime(date).daysInMonth()).toEqual(expectedDaysInMonth);
   });
 
@@ -19,8 +15,6 @@ describe('daysInMonth functions', () => {
     const expectedDaysInMonth = 29;
 
     expect(moment(date).daysInMonth()).toEqual(expectedDaysInMonth);
-    expect(datetime.daysInMonth(date)).toEqual(expectedDaysInMonth);
-    expect(date.daysInMonth()).toEqual(expectedDaysInMonth);
     expect(datetime(date).daysInMonth()).toEqual(expectedDaysInMonth);
   });
 
@@ -29,8 +23,6 @@ describe('daysInMonth functions', () => {
     const expectedDaysInMonth = 31;
 
     expect(moment(date).daysInMonth()).toEqual(expectedDaysInMonth);
-    expect(datetime.daysInMonth(date)).toEqual(expectedDaysInMonth);
-    expect(date.daysInMonth()).toEqual(expectedDaysInMonth);
     expect(datetime(date).daysInMonth()).toEqual(expectedDaysInMonth);
   });
 
@@ -39,8 +31,6 @@ describe('daysInMonth functions', () => {
     const expectedDaysInMonth = 30;
 
     expect(moment(date).daysInMonth()).toEqual(expectedDaysInMonth);
-    expect(datetime.daysInMonth(date)).toEqual(expectedDaysInMonth);
-    expect(date.daysInMonth()).toEqual(expectedDaysInMonth);
     expect(datetime(date).daysInMonth()).toEqual(expectedDaysInMonth);
   });
 });

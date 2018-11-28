@@ -1,24 +1,12 @@
-const datetime = require('./../index');
+const datetime = require('./../dist');
 
-datetime.addPrototypes();
-
-describe('clone functions', () => {
+describe('clone()', () => {
   it('should clone date correctly', () => {
-    const date = new Date('2017-02-01T00:00:00.000Z');
-
-    let clonedDate = datetime.clone(date);
-
-    expect(date).not.toBe(clonedDate);
-    expect(date.getTime()).toEqual(clonedDate.getTime());
-
-    clonedDate = date.clone();
+    const date = datetime('2017-02-01T00:00:00.000Z');
+    const clonedDate = date.clone();
 
     expect(date).not.toBe(clonedDate);
     expect(date.getTime()).toEqual(clonedDate.getTime());
-
-    clonedDate = datetime(date).clone();
-
-    expect(date).not.toBe(clonedDate);
-    expect(date.getTime()).toEqual(clonedDate.getTime());
+    expect(clonedDate.constructor.name).toEqual('DateTime');
   });
 });

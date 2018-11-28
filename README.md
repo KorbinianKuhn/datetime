@@ -11,14 +11,14 @@
 
 High performance date manipulations.
 
-This library just provides human readable functions for simple, mostly mathematical date operations. All operations are expecting a valid date object and do not check their input arguments to provide maximum performance. If you want immutability, use the ```clone``` function.
+This library just provides human readable functions for simple, mostly mathematical date operations. All operations are expecting a valid date object and do not check their input arguments to provide maximum performance. If you want immutability, use the `clone` function.
 
 There are already a lot of very good libraries like momentjs, date-fns, dayjs or instadate.
 
 Use this library, if you want:
 
 - the highest performance
-- choose how to operate on dates (functional programming, prototyping or subclassing)
+- have a moment like syntax
 
 Don't use this library, if you need:
 
@@ -43,278 +43,70 @@ $ git clone https://github.com/KorbinianKuhn/datetime
 
 ## Getting started
 
-Use all functions of the lib
-
-```javascript
-const datetime = require("@korbiniankuhn/datetime");
-
-const date = new Date();
-
-datetime.addMonths(date, 2);
-```
-
-Import only required functions.
-
-```javascript
-const { addMonths } = require("@korbiniankuhn/datetime");
-
-const date = new Date();
-
-addMonths(date, 2);
-```
-
-Add all functions as prototypes to the native Date object
-
-```javascript
-const { addPrototypes } = require("@korbiniankuhn/datetime");
-
-addPrototypes();
-
-new Date().addMonths(2);
-```
-
-Use the DateTime object to use function chaining (like momentjs or dayjs) without adding prototypes to the native Date object.
-
 ```javascript
 const datetime = require("@korbiniankuhn/datetime");
 
 /* Create new date object add two months and return native date object */
 datetime()
-  .addMonths(2)
+  .add(2, 'months)
   .toDate();
 
-/* Create native date object and manipulate it through lib date object */
-const date = new Date();
-datetime(date).addMonths(2).toDate();
-
 /* An immutable usage */
-const date = new Date();
-datetime(date)
+datetime()
   .clone()
-  .addMonths(2)
+  .subtract(1, 'year)
   .toDate();
 
 /* Create a new utc date */
 datetime.utc()
+  .add(2000, 'ms')
+  .toDate();
+
+/* Use existing date */
+datetime(new Date())
+  .startOf('month')
   .toDate();
 ```
 
 ## API
 
-### add*
+`datetime().add(amount, unit)`: Add interval to date.
 
-Add interval to date.
+`datetime().clone()`: Create a copy of the date.
 
-| Functional                          | Prototype / datetime                            |
-| ----------------------------------- | ----------------------------------------------- |
-| ```add(date, amount, unit)```       | ```(Date / datetime).add(amount, unit)```       |
-| ```addMilliseconds(date, amount)``` | ```(Date / datetime).addMilliseconds(amount)``` |
-| ```addSeconds(date, amount)```      | ```(Date / datetime).addSeconds(amount)```      |
-| ```addMinutes(date, amount)```      | ```(Date / datetime).addMinutes(amount)```      |
-| ```addHours(date, amount)```        | ```(Date / datetime).addHours(amount)```        |
-| ```addDays(date, amount)```         | ```(Date / datetime).addDays(amount)```         |
-| ```addMonths(date, amount)```       | ```(Date / datetime).addMonths(amount)```       |
-| ```addYears(date, amount)```        | ```(Date / datetime).addYears(amount)```        |
+`datetime().daysInMonth()`: Get the number of days in month.
 
-### addPrototypes()
+`datetime().daysInQuarter()`: Get the number of days in quarter.
 
-Add all functions of the lib to the native date object.
+`datetime().daysInYear()`: Get the number of days in year.
 
-### clone
+`datetime().diff(date, unit)`: Get the difference between two dates.
 
-Create a copy of the date.
+`datetime().endOf(unit)`: Set date to end of given interval.
 
-| Functional        | Prototype / datetime            |
-| ----------------- | ------------------------------- |
-| ```clone(date)``` | ```(Date / datetime).clone()``` |
+`datetime().getQuarter()`: Get quarter of date in year. First quarter starts with 1.
 
-### daysIn*
+`datetime().isAfter(date, unit)`: Check if date is after another date.
 
-Get the number of days in month, quarter or year.
+`datetime().isBefore(date, unit)`: Check if date is before another date.
 
-| Functional                | Prototype / datetime                    |
-| ------------------------- | --------------------------------------- |
-| ```daysInMonth(date)```   | ```(Date / datetime).daysInMonth()```   |
-| ```daysInQuarter(date)``` | ```(Date / datetime).daysInQuarter()``` |
-| ```daysInYear(date)```    | ```(Date / datetime).daysInYear()```    |
+`datetime().isLeapYear()`: Check if date is a leap year.
 
-### diff*
+`datetime().isSame(date, unit)`: Check if date is same as another date.
 
-Get the difference between two dates.
+`datetime().isSameOrAfter(date, unit)`: Check if date is same as or after another date.
 
-| Functional                                   | Prototype / datetime                                    |
-| -------------------------------------------- | ------------------------------------------------------- |
-| ```difference(dateA, dateB, unit)```         | ```(Date / datetime).difference(dateB, unit)```         |
-| ```differenceInMilliseconds(dateA, dateB)``` | ```(Date / datetime).differenceInMilliseconds(dateB)``` |
-| ```differenceInSeconds(dateA, dateB)```      | ```(Date / datetime).differenceInSeconds(dateB)```      |
-| ```differenceInMinutes(dateA, dateB)```      | ```(Date / datetime).differenceInMinutes(dateB)```      |
-| ```differenceInHours(dateA, dateB)```        | ```(Date / datetime).differenceInHours(dateB)```        |
-| ```differenceInDays(dateA, dateB)```         | ```(Date / datetime).differenceInDays(dateB)```         |
-| ```differenceInMonths(dateA, dateB)```       | ```(Date / datetime).differenceInMonths(dateB)```       |
-| ```differenceInYears(dateA, dateB)```        | ```(Date / datetime).differenceInYears(dateB)```        |
+`datetime().isSameOrBefore(date, unit)`: Check if date is same as or after another date.
 
-### endOf*
+`datetime().isValid()`: Check if date is valid.
 
-Set date to end of given interval.
+`datetime().startOf(unit)`: Set date to end of given interval.
 
-| Functional              | Prototype / datetime                  |
-| ----------------------- | ------------------------------------- |
-| ```endOf(date, unit)``` | ```(Date / datetime).endOf(unit)```   |
-| ```endOfSecond(date)``` | ```(Date / datetime).endOfSecond()``` |
-| ```endOfMinute(date)``` | ```(Date / datetime).endOfMinute()``` |
-| ```endOfHour(date)```   | ```(Date / datetime).endOfHour()```   |
-| ```endOfDay(date)```    | ```(Date / datetime).endOfDay()```    |
-| ```endOfMonth(date)```  | ```(Date / datetime).endOfMonth()```  |
-| ```endOfYear(date)```   | ```(Date / datetime).endOfYear()```   |
+`datetime().subtract(amount, unit)`: Subtract interval from date.
 
-### getQuarter
+`datetime().toUTC()`: Convert date to utc timezone.
 
-Get quarter of date in year. First quarter starts with 1.
-
-| Functional             | Prototype / datetime                 |
-| ---------------------- | ------------------------------------ |
-| ```getQuarter(date)``` | ```(Date / datetime).getQuarter()``` |
-
-### isAfter*
-
-Check if date is after another date.
-
-| Functional                             | Prototype / datetime                              |
-| -------------------------------------- | ------------------------------------------------- |
-| ```isAfter(dateA, dateB, unit)```      | ```(Date / datetime).isAfter(dateB, unit)```      |
-| ```isAfterMillisecond(dateA, dateB)``` | ```(Date / datetime).isAfterMillisecond(dateB)``` |
-| ```isAfterSecond(dateA, dateB)```      | ```(Date / datetime).isAfterSecond(dateB)```      |
-| ```isAfterMinute(dateA, dateB)```      | ```(Date / datetime).isAfterMinute(dateB)```      |
-| ```isAfterHour(dateA, dateB)```        | ```(Date / datetime).isAfterHour(dateB)```        |
-| ```isAfterDay(dateA, dateB)```         | ```(Date / datetime).isAfterDay(dateB)```         |
-| ```isAfterMonth(dateA, dateB)```       | ```(Date / datetime).isAfterMonth(dateB)```       |
-| ```isAfterQuarter(dateA, dateB)```     | ```(Date / datetime).isAfterQuarter(dateB)```     |
-| ```isAfterYear(dateA, dateB)```        | ```(Date / datetime).isAfterYear(dateB)```        |
-
-### isBefore*
-
-Check if date is before another date.
-
-| Functional                              | Prototype / datetime                               |
-| --------------------------------------- | -------------------------------------------------- |
-| ```isBefore(dateA, dateB, unit)```      | ```(Date / datetime).isBefore(dateB, unit)```      |
-| ```isBeforeMillisecond(dateA, dateB)``` | ```(Date / datetime).isBeforeMillisecond(dateB)``` |
-| ```isBeforeSecond(dateA, dateB)```      | ```(Date / datetime).isBeforeSecond(dateB)```      |
-| ```isBeforeMinute(dateA, dateB)```      | ```(Date / datetime).isBeforeMinute(dateB)```      |
-| ```isBeforeHour(dateA, dateB)```        | ```(Date / datetime).isBeforeHour(dateB)```        |
-| ```isBeforeDay(dateA, dateB)```         | ```(Date / datetime).isBeforeDay(dateB)```         |
-| ```isBeforeMonth(dateA, dateB)```       | ```(Date / datetime).isBeforeMonth(dateB)```       |
-| ```isBeforeQuarter(dateA, dateB)```     | ```(Date / datetime).isBeforeQuarter(dateB)```     |
-| ```isBeforeYear(dateA, dateB)```        | ```(Date / datetime).isBeforeYear(dateB)```        |
-
-### isLeapYear
-
-Check if date is a leap year.
-
-| Functional             | Prototype / datetime                 |
-| ---------------------- | ------------------------------------ |
-| ```isLeapYear(date)``` | ```(Date / datetime).isLeapYear()``` |
-
-### isSame*
-
-Check if date is same as another date.
-
-| Functional                            | Prototype / datetime                             |
-| ------------------------------------- | ------------------------------------------------ |
-| ```isSame(dateA, dateB, unit)```      | ```(Date / datetime).isSame(dateB, unit)```      |
-| ```isSameMillisecond(dateA, dateB)``` | ```(Date / datetime).isSameMillisecond(dateB)``` |
-| ```isSameSecond(dateA, dateB)```      | ```(Date / datetime).isSameSecond(dateB)```      |
-| ```isSameMinute(dateA, dateB)```      | ```(Date / datetime).isSameMinute(dateB)```      |
-| ```isSameHour(dateA, dateB)```        | ```(Date / datetime).isSameHour(dateB)```        |
-| ```isSameDay(dateA, dateB)```         | ```(Date / datetime).isSameDay(dateB)```         |
-| ```isSameMonth(dateA, dateB)```       | ```(Date / datetime).isSameMonth(dateB)```       |
-| ```isSameQuarter(dateA, dateB)```     | ```(Date / datetime).isSameQuarter(dateB)```     |
-| ```isSameYear(dateA, dateB)```        | ```(Date / datetime).isSameYear(dateB)```        |
-
-### isSameOrAfter*
-
-Check if date is same as or after another date.
-
-| Functional                                   | Prototype / datetime                                    |
-| -------------------------------------------- | ------------------------------------------------------- |
-| ```isSameOrAfter(dateA, dateB, unit)```      | ```(Date / datetime).isSameOrAfter(dateB, unit)```      |
-| ```isSameOrAfterMillisecond(dateA, dateB)``` | ```(Date / datetime).isSameOrAfterMillisecond(dateB)``` |
-| ```isSameOrAfterSecond(dateA, dateB)```      | ```(Date / datetime).isSameOrAfterSecond(dateB)```      |
-| ```isSameOrAfterMinute(dateA, dateB)```      | ```(Date / datetime).isSameOrAfterMinute(dateB)```      |
-| ```isSameOrAfterHour(dateA, dateB)```        | ```(Date / datetime).isSameOrAfterHour(dateB)```        |
-| ```isSameOrAfterDay(dateA, dateB)```         | ```(Date / datetime).isSameOrAfterDay(dateB)```         |
-| ```isSameOrAfterMonth(dateA, dateB)```       | ```(Date / datetime).isSameOrAfterMonth(dateB)```       |
-| ```isSameOrAfterQuarter(dateA, dateB)```     | ```(Date / datetime).isSameOrAfterQuarter(dateB)```     |
-| ```isSameOrAfterYear(dateA, dateB)```        | ```(Date / datetime).isSameOrAfterYear(dateB)```        |
-
-### isSameOrBefore*
-
-Check if date is same as or before another date.
-
-| Functional                                    | Prototype / datetime                                     |
-| --------------------------------------------- | -------------------------------------------------------- |
-| ```isSameOrBefore(dateA, dateB, unit)```      | ```(Date / datetime).isSameOrBefore(dateB, unit)```      |
-| ```isSameOrBeforeMillisecond(dateA, dateB)``` | ```(Date / datetime).isSameOrBeforeMillisecond(dateB)``` |
-| ```isSameOrBeforeSecond(dateA, dateB)```      | ```(Date / datetime).isSameOrBeforeSecond(dateB)```      |
-| ```isSameOrBeforeMinute(dateA, dateB)```      | ```(Date / datetime).isSameOrBeforeMinute(dateB)```      |
-| ```isSameOrBeforeHour(dateA, dateB)```        | ```(Date / datetime).isSameOrBeforeHour(dateB)```        |
-| ```isSameOrBeforeDay(dateA, dateB)```         | ```(Date / datetime).isSameOrBeforeDay(dateB)```         |
-| ```isSameOrBeforeMonth(dateA, dateB)```       | ```(Date / datetime).isSameOrBeforeMonth(dateB)```       |
-| ```isSameOrBeforeQuarter(dateA, dateB)```     | ```(Date / datetime).isSameOrBeforeQuarter(dateB)```     |
-| ```isSameOrBeforeYear(dateA, dateB)```        | ```(Date / datetime).isSameOrBeforeYear(dateB)```        |
-
-### isValid
-
-Check if date is valid.
-
-| Functional          | Prototype / datetime              |
-| ------------------- | --------------------------------- |
-| ```isValid(date)``` | ```(Date / datetime).isValid()``` |
-
-### startOf*
-
-Set date to end of given interval.
-
-| Functional                | Prototype / datetime                    |
-| ------------------------- | --------------------------------------- |
-| ```startOf(date, unit)``` | ```(Date / datetime).startOf(unit)```   |
-| ```startOfSecond(date)``` | ```(Date / datetime).startOfSecond()``` |
-| ```startOfMinute(date)``` | ```(Date / datetime).startOfMinute()``` |
-| ```startOfHour(date)```   | ```(Date / datetime).startOfHour()```   |
-| ```startOfDay(date)```    | ```(Date / datetime).startOfDay()```    |
-| ```startOfMonth(date)```  | ```(Date / datetime).startOfMonth()```  |
-| ```startOfYear(date)```   | ```(Date / datetime).startOfYear()```   |
-
-### subtract*
-
-Subtract interval from date.
-
-| Functional                               | Prototype / datetime                                 |
-| ---------------------------------------- | ---------------------------------------------------- |
-| ```subtract(date, amount, unit)```       | ```(Date / datetime).subtract(amount, unit)```       |
-| ```subtractMilliseconds(date, amount)``` | ```(Date / datetime).subtractMilliseconds(amount)``` |
-| ```subtractSeconds(date, amount)```      | ```(Date / datetime).subtractSeconds(amount)```      |
-| ```subtractMinutes(date, amount)```      | ```(Date / datetime).subtractMinutes(amount)```      |
-| ```subtractHours(date, amount)```        | ```(Date / datetime).subtractHours(amount)```        |
-| ```subtractDays(date, amount)```         | ```(Date / datetime).subtractDays(amount)```         |
-| ```subtractMonths(date, amount)```       | ```(Date / datetime).subtractMonths(amount)```       |
-| ```subtractYears(date, amount)```        | ```(Date / datetime).subtractYears(amount)```        |
-
-### toUTC
-
-Convert date to utc timezone.
-
-| Functional        | Prototype / datetime            |
-| ----------------- | ------------------------------- |
-| ```toUTC(date)``` | ```(Date / datetime).toUTC()``` |
-
-### unix
-
-Get a unix timestamp of the date (without milliseconds).
-
-| Functional       | Prototype / datetime           |
-| ---------------- | ------------------------------ |
-| ```unix(date)``` | ```(Date / datetime).unix()``` |
+`datetime().unix()`: Get a unix timestamp of the date (without milliseconds).
 
 ## Testing
 
@@ -333,7 +125,7 @@ $ npm test
 To get information about the test coverage, use:
 
 ```
-$ npm run coverage
+$ npm run test:coverage
 ```
 
 ## Contribution

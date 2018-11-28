@@ -1,14 +1,10 @@
-const datetime = require('./../index');
+const datetime = require('./../dist');
 
-datetime.addPrototypes();
-
-describe('daysInQuarter functions', () => {
+describe('daysInQuarter()', () => {
   it('should have num days of first quarter in normal year', () => {
     const date = new Date('2017-02-01T00:00:00.000Z');
     const expectedDaysInQuarter = 90;
 
-    expect(datetime.daysInQuarter(date)).toEqual(expectedDaysInQuarter);
-    expect(date.daysInQuarter()).toEqual(expectedDaysInQuarter);
     expect(datetime(date).daysInQuarter()).toEqual(expectedDaysInQuarter);
   });
 
@@ -16,8 +12,6 @@ describe('daysInQuarter functions', () => {
     const date = new Date('2016-02-01T00:00:00.000Z');
     const expectedDaysInQuarter = 91;
 
-    expect(datetime.daysInQuarter(date)).toEqual(expectedDaysInQuarter);
-    expect(date.daysInQuarter()).toEqual(expectedDaysInQuarter);
     expect(datetime(date).daysInQuarter()).toEqual(expectedDaysInQuarter);
   });
 
@@ -25,8 +19,6 @@ describe('daysInQuarter functions', () => {
     const date = new Date('2018-12-01T00:00:00.000Z');
     const expectedDaysInQuarter = 92;
 
-    expect(datetime.daysInQuarter(date)).toEqual(expectedDaysInQuarter);
-    expect(date.daysInQuarter()).toEqual(expectedDaysInQuarter);
     expect(datetime(date).daysInQuarter()).toEqual(expectedDaysInQuarter);
   });
 });

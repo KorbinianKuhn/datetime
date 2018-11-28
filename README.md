@@ -48,13 +48,13 @@ const datetime = require("@korbiniankuhn/datetime");
 
 /* Create new date object add two months and return native date object */
 datetime()
-  .add(2, 'months)
+  .add(2, 'months')
   .toDate();
 
 /* An immutable usage */
 datetime()
   .clone()
-  .subtract(1, 'year)
+  .subtract(1, 'year')
   .toDate();
 
 /* Create a new utc date */

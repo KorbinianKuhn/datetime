@@ -7,6 +7,7 @@
 [![Dev Dependencies](https://img.shields.io/david/dev/KorbinianKuhn/datetime.svg?style=flat-square)](https://david-dm.org/KorbinianKuhn/datetime)
 [![npm](https://img.shields.io/npm/dt/@korbiniankuhn/datetime.svg?style=flat-square)](https://www.npmjs.com/package/@korbiniankuhn/datetime)
 [![npm-version](https://img.shields.io/npm/v/@korbiniankuhn/datetime.svg?style=flat-square)](https://www.npmjs.com/package/@korbiniankuhn/datetime)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 ![license](https://img.shields.io/github/license/KorbinianKuhn/datetime.svg?style=flat-square)
 
 High performance date manipulations.

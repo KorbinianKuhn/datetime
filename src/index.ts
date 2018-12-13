@@ -171,7 +171,7 @@ class DateTime extends Date {
         return Math.floor(
           (Date.UTC(this.getFullYear(), this.getMonth(), this.getDate()) -
             Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())) /
-            MILLISECONDS_PER_DAY
+          MILLISECONDS_PER_DAY
         );
       case MONTH:
         return (
@@ -222,8 +222,8 @@ class DateTime extends Date {
         break;
       case YEAR:
         this.setHours(23, 59, 59, 999);
-        this.setDate(31);
         this.setMonth(11);
+        this.setDate(31)
         break;
     }
     return this;

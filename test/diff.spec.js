@@ -28,6 +28,12 @@ describe('diff()', () => {
         const actual = datetime(date).diff(dateB, unit);
         expect(actual).toEqual(expected);
       });
+
+      it(`utc: with unit ${unit} and date ${date.toISOString()} should verify`, () => {
+        const expected = moment.utc(date).diff(dateB, unit);
+        const actual = datetime.utc(date).diff(dateB, unit);
+        expect(actual).toEqual(expected);
+      });
     });
   });
 });

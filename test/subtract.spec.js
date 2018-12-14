@@ -29,6 +29,20 @@ describe('subtract()', () => {
           .getTime();
         expect(actual).toEqual(expected);
       });
+
+      it(`utc: with unit ${unit} and amount ${amount} should verify`, () => {
+        const expected = moment
+          .utc(date)
+          .subtract(amount, unit)
+          .toDate()
+          .getTime();
+        const actual = datetime
+          .utc(date)
+          .subtract(amount, unit)
+          .toDate()
+          .getTime();
+        expect(actual).toEqual(expected);
+      });
     });
   });
 });

@@ -1,13 +1,21 @@
 # datetime
 
 [![Travis](https://img.shields.io/travis/KorbinianKuhn/datetime.svg?style=flat-square)](https://travis-ci.org/KorbinianKuhn/datetime/builds)
+
 [![Coverage](http://img.shields.io/coveralls/KorbinianKuhn/datetime.svg?style=flat-square&branch=master)](https://coveralls.io/r/KorbinianKuhn/datetime)
+
 [![Known Vulnerabilities](https://snyk.io/test/github/KorbinianKuhn/datetime/badge.svg?style=flat-square)](https://snyk.io/test/github/KorbinianKuhn/datetime)
+
 [![Dependencies](https://img.shields.io/david/KorbinianKuhn/datetime.svg?style=flat-square)](https://david-dm.org/KorbinianKuhn/datetime)
+
 [![Dev Dependencies](https://img.shields.io/david/dev/KorbinianKuhn/datetime.svg?style=flat-square)](https://david-dm.org/KorbinianKuhn/datetime)
+
 [![npm](https://img.shields.io/npm/dt/@korbiniankuhn/datetime.svg?style=flat-square)](https://www.npmjs.com/package/@korbiniankuhn/datetime)
+
 [![npm-version](https://img.shields.io/npm/v/@korbiniankuhn/datetime.svg?style=flat-square)](https://www.npmjs.com/package/@korbiniankuhn/datetime)
+
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+
 ![license](https://img.shields.io/github/license/KorbinianKuhn/datetime.svg?style=flat-square)
 
 High performance date manipulations.
@@ -45,7 +53,7 @@ $ git clone https://github.com/KorbinianKuhn/datetime
 ## Getting started
 
 ```javascript
-const datetime = require("@korbiniankuhn/datetime");
+const datetime = require('@korbiniankuhn/datetime');
 
 /* Create new date object add two months and return native date object */
 datetime()
@@ -59,7 +67,8 @@ datetime()
   .toDate();
 
 /* Create a new utc date */
-datetime.utc()
+datetime
+  .utc()
   .add(2000, 'ms')
   .toDate();
 
@@ -87,6 +96,8 @@ datetime(new Date())
 
 `datetime().getQuarter()`: Get quarter of date in year. First quarter starts with 1.
 
+`datetime().get(unit)`: Get value of given unit.
+
 `datetime().isAfter(date, unit)`: Check if date is after another date.
 
 `datetime().isBefore(date, unit)`: Check if date is before another date.
@@ -99,7 +110,11 @@ datetime(new Date())
 
 `datetime().isSameOrBefore(date, unit)`: Check if date is same as or after another date.
 
+`datetime().isUTC()`: Returns if the DateTime object is in UTC mode.
+
 `datetime().isValid()`: Check if date is valid.
+
+`datetime().set(value, unit)`: Set value of given unit.
 
 `datetime().startOf(unit)`: Set date to end of given interval.
 

@@ -71,9 +71,16 @@ const normalizeUnit = (unit: string, allowMilliseconds: boolean = true) => {
   throwError(`unknown time unit ${unit}`);
 };
 
+const toDateTime = (date: Date | DateTime, isUTC: boolean): DateTime => {
+  return date instanceof DateTime ? date : isUTC ? utc(date) : local(date);
+};
+
 class DateTime extends Date {
+  private _isUtc: boolean;
+
   constructor(value?: string | number | Date | DateTime) {
     value ? super(value) : super();
+    this._isUtc = false;
   }
 
   /**
@@ -96,16 +103,16 @@ class DateTime extends Date {
         this.setTime(this.getTime() + amount * MILLISECONDS_PER_HOUR);
         break;
       case DAY:
-        this.setDate(this.getDate() + amount);
+        this.date(this.get('day') + amount);
         break;
       case MONTH:
-        this.setMonth(this.getMonth() + amount);
+        this.month(this.get('month') + amount);
         break;
       case QUARTER:
-        this.setMonth(this.getMonth() + amount * 3);
+        this.quarter(this.get('quarter') + amount);
         break;
       case YEAR:
-        this.setFullYear(this.getFullYear() + amount);
+        this.year(this.get('year') + amount);
         break;
     }
     return this;
@@ -115,14 +122,22 @@ class DateTime extends Date {
    * Create copy of DateTime.
    */
   public clone(): DateTime {
-    return new DateTime(this);
+    const datetime = new DateTime(this);
+    return this.isUTC() ? datetime.toUTC() : datetime;
   }
 
   /**
    * Get number of days in month.
    */
   public daysInMonth(): number {
-    return new Date(this.getFullYear(), this.getMonth() + 1, 0).getDate();
+    return (
+      this.clone()
+        .startOf('month')
+        .add(1, 'month')
+        .date(0)
+        // @ts-ignore
+        .get('day')
+    );
   }
 
   /**
@@ -152,41 +167,47 @@ class DateTime extends Date {
    * @param unit - Unit of time. Default is milliseconds.
    */
   public diff(date: Date | DateTime, unit: string = 'milliseconds'): number {
+    const compareDate = toDateTime(date, this.isUTC());
+
     switch (normalizeUnit(unit)) {
       case MILLISECOND:
-        return this.getTime() - date.getTime();
+        return this.getTime() - compareDate.getTime();
       case SECOND:
         return Math.floor(
-          (this.getTime() - date.getTime()) / MILLISECONDS_PER_SECOND
+          (this.getTime() - compareDate.getTime()) / MILLISECONDS_PER_SECOND
         );
       case MINUTE:
         return Math.floor(
-          (this.getTime() - date.getTime()) / MILLISECONDS_PER_MINUTE
+          (this.getTime() - compareDate.getTime()) / MILLISECONDS_PER_MINUTE
         );
       case HOUR:
         return Math.floor(
-          (this.getTime() - date.getTime()) / MILLISECONDS_PER_HOUR
+          (this.getTime() - compareDate.getTime()) / MILLISECONDS_PER_HOUR
         );
       case DAY:
         return Math.floor(
           (Date.UTC(this.getFullYear(), this.getMonth(), this.getDate()) -
-            Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())) /
-          MILLISECONDS_PER_DAY
+            Date.UTC(
+              compareDate.getFullYear(),
+              compareDate.getMonth(),
+              compareDate.getDate()
+            )) /
+            MILLISECONDS_PER_DAY
         );
       case MONTH:
         return (
-          (this.getFullYear() - date.getFullYear()) * 12 +
-          this.getMonth() -
-          date.getMonth()
+          (this.get('year') - compareDate.get('year')) * 12 +
+          this.get('month') -
+          compareDate.get('month')
         );
       case QUARTER:
         return (
-          (this.getFullYear() - date.getFullYear()) * 4 +
-          this.getQuarter() -
-          new DateTime(date).getQuarter()
+          (this.get('year') - compareDate.get('year')) * 4 +
+          this.get('quarter') -
+          compareDate.get('quarter')
         );
       case YEAR:
-        return this.getFullYear() - date.getFullYear();
+        return this.get('year') - compareDate.get('year');
       default:
         return 0;
     }
@@ -199,31 +220,31 @@ class DateTime extends Date {
   public endOf(unit: string = 'second'): DateTime {
     switch (normalizeUnit(unit, false)) {
       case SECOND:
-        this.setMilliseconds(999);
+        this.millisecond(999);
         break;
       case MINUTE:
-        this.setSeconds(59, 999);
+        this.second(59, 999);
         break;
       case HOUR:
-        this.setMinutes(59, 59, 999);
+        this.minute(59, 59, 999);
         break;
       case DAY:
-        this.setHours(23, 59, 59, 999);
+        this.hour(23, 59, 59, 999);
         break;
       case MONTH:
-        this.setHours(23, 59, 59, 999);
-        this.setDate(this.daysInMonth());
+        this.hour(23, 59, 59, 999);
+        this.date(this.daysInMonth());
         break;
       case QUARTER:
-        this.setDate(1);
-        this.setHours(23, 59, 59, 999);
-        this.setMonth(this.getQuarter() * 3 - 1);
-        this.setDate(this.daysInMonth());
+        this.date(1);
+        this.hour(23, 59, 59, 999);
+        this.month(this.get('quarter') * 3 - 1);
+        this.date(this.daysInMonth());
         break;
       case YEAR:
-        this.setHours(23, 59, 59, 999);
-        this.setMonth(11);
-        this.setDate(31)
+        this.hour(23, 59, 59, 999);
+        this.month(11);
+        this.date(31);
         break;
     }
     return this;
@@ -245,51 +266,51 @@ class DateTime extends Date {
       }
       switch (match) {
         case 'YY':
-          return `${this.getFullYear()}`.slice(-2);
+          return `${this.year()}`.slice(-2);
         case 'YYYY':
-          return `${this.getFullYear()}`;
+          return `${this.year()}`;
         case 'M':
-          return `${this.getMonth() + 1}`;
+          return `${this.get('month') + 1}`;
         case 'MM':
-          return padStart(this.getMonth() + 1);
+          return padStart(this.get('month') + 1);
         case 'MMM':
           return this.toLocaleDateString(locale, { month: 'short' });
         case 'MMMM':
           return this.toLocaleDateString(locale, { month: 'long' });
         case 'D':
-          return `${this.getDate()}`;
+          return `${this.date()}`;
         case 'DD':
-          return padStart(this.getDate());
+          return padStart(this.get('date'));
         case 'H':
-          return `${this.getHours()}`;
+          return `${this.hour()}`;
         case 'HH':
-          return padStart(this.getHours());
+          return padStart(this.get('hour'));
         case 'h':
-          return this.getHours() === 0
+          return this.hour() === 0
             ? '12'
-            : this.getHours() < 13
-              ? `${this.getHours()}`
-              : `${this.getHours() - 12}`;
+            : this.hour() < 13
+            ? `${this.hour()}`
+            : `${this.get('hour') - 12}`;
         case 'hh':
-          return this.getHours() === 0
+          return this.hour() === 0
             ? '12'
-            : this.getHours() < 13
-              ? padStart(this.getHours())
-              : padStart(this.getHours() - 12);
+            : this.hour() < 13
+            ? padStart(this.get('hour'))
+            : padStart(this.get('hour') - 12);
         case 'a':
-          return this.getHours() < 12 ? 'am' : 'pm';
+          return this.hour() < 12 ? 'am' : 'pm';
         case 'A':
-          return this.getHours() < 12 ? 'AM' : 'PM';
+          return this.hour() < 12 ? 'AM' : 'PM';
         case 'm':
-          return `${this.getMinutes()}`;
+          return `${this.minute()}`;
         case 'mm':
-          return padStart(this.getMinutes());
+          return padStart(this.get('minute'));
         case 's':
-          return `${this.getSeconds()}`;
+          return `${this.second()}`;
         case 'ss':
-          return `${padStart(this.getSeconds())}`;
+          return `${padStart(this.get('second'))}`;
         case 'SSS':
-          const ms = this.getMilliseconds();
+          const ms = this.millisecond();
           return ms < 10 ? `00${ms}` : ms < 100 ? `0${ms}` : `${ms}`;
         case 'Z':
           return zoneStr;
@@ -305,7 +326,7 @@ class DateTime extends Date {
    * Get quarter of date.
    */
   public getQuarter(): number {
-    return Math.floor(this.getMonth() / 3) + 1;
+    return Math.floor(this.get('month') / 3) + 1;
   }
 
   /**
@@ -321,30 +342,35 @@ class DateTime extends Date {
     if (diff <= 0) {
       return false;
     }
+    const compareDate = toDateTime(date, this.isUTC());
     switch (normalizeUnit(unit, true)) {
       case MILLISECOND:
         return diff > 0;
       case SECOND: {
-        return diff >= MILLISECONDS_PER_SECOND || !this.isSame(date, SECOND);
+        return (
+          diff >= MILLISECONDS_PER_SECOND || !this.isSame(compareDate, SECOND)
+        );
       }
       case MINUTE:
-        return diff >= MILLISECONDS_PER_MINUTE || !this.isSame(date, MINUTE);
+        return (
+          diff >= MILLISECONDS_PER_MINUTE || !this.isSame(compareDate, MINUTE)
+        );
       case HOUR:
-        return diff >= MILLISECONDS_PER_HOUR || !this.isSame(date, HOUR);
+        return diff >= MILLISECONDS_PER_HOUR || !this.isSame(compareDate, HOUR);
       case DAY:
-        return diff >= MILLISECONDS_PER_DAY || !this.isSame(date, DAY);
+        return diff >= MILLISECONDS_PER_DAY || !this.isSame(compareDate, DAY);
       case MONTH:
         return (
-          this.getFullYear() - date.getFullYear() > 0 ||
-          this.getMonth() > date.getMonth()
+          this.get('year') - compareDate.get('year') > 0 ||
+          this.month() > compareDate.month()
         );
       case QUARTER:
         return (
-          this.getFullYear() - date.getFullYear() > 0 ||
-          this.getQuarter() > new DateTime(date).getQuarter()
+          this.get('year') - compareDate.get('year') > 0 ||
+          this.quarter() > compareDate.quarter()
         );
       case YEAR:
-        return this.getFullYear() > date.getFullYear();
+        return this.year() > compareDate.year();
       default:
         return false;
     }
@@ -356,17 +382,15 @@ class DateTime extends Date {
    * @param unit - Unit of time. Default is milliseconds.
    */
   public isBefore(date: Date | DateTime, unit = 'milliseconds'): boolean {
-    return (
-      this.getTime() !== date.getTime() &&
-      new DateTime(date).isAfter(this, unit)
-    );
+    const compareDate = toDateTime(date, this.isUTC());
+    return this.getTime() !== date.getTime() && compareDate.isAfter(this, unit);
   }
 
   /**
    * Check if date is leap year.
    */
   public isLeapYear(): boolean {
-    const year = this.getFullYear();
+    const year = this.get('year');
     return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
   }
 
@@ -376,46 +400,47 @@ class DateTime extends Date {
    * @param unit - Unit of time. Default is milliseconds.
    */
   public isSame(date: Date | DateTime, unit = 'milliseconds'): boolean {
+    const compareDate: DateTime = toDateTime(date, this.isUTC());
     switch (normalizeUnit(unit, true)) {
       case MILLISECOND:
-        return this.getTime() === date.getTime();
+        return this.getTime() === compareDate.getTime();
       case SECOND:
         return (
           this.clone()
             .startOf(SECOND)
-            .getTime() === new DateTime(date).startOf(SECOND).getTime()
+            .getTime() === compareDate.startOf(SECOND).getTime()
         );
       case MINUTE:
         return (
           this.clone()
             .startOf(MINUTE)
-            .getTime() === new DateTime(date).startOf(MINUTE).getTime()
+            .getTime() === compareDate.startOf(MINUTE).getTime()
         );
       case HOUR:
         return (
           this.clone()
             .startOf(HOUR)
-            .getTime() === new DateTime(date).startOf(HOUR).getTime()
+            .getTime() === compareDate.startOf(HOUR).getTime()
         );
       case DAY:
         return (
           this.clone()
             .startOf(DAY)
-            .getTime() === new DateTime(date).startOf(DAY).getTime()
+            .getTime() === compareDate.startOf(DAY).getTime()
         );
       case MONTH:
         return (
-          this.getFullYear() === date.getFullYear() &&
-          this.getMonth() === date.getMonth()
+          this.year() === compareDate.year() &&
+          this.month() === compareDate.month()
         );
       case QUARTER:
         return (
           this.clone()
             .startOf(QUARTER)
-            .getTime() === new DateTime(date).startOf(QUARTER).getTime()
+            .getTime() === compareDate.startOf(QUARTER).getTime()
         );
       case YEAR:
-        return this.getFullYear() === date.getFullYear();
+        return this.year() === compareDate.year();
       default:
         return false;
     }
@@ -453,30 +478,30 @@ class DateTime extends Date {
   public startOf(unit: string = 'second'): DateTime {
     switch (normalizeUnit(unit, false)) {
       case SECOND:
-        this.setMilliseconds(0);
+        this.millisecond(0);
         break;
       case MINUTE:
-        this.setSeconds(0, 0);
+        this.second(0, 0);
         break;
       case HOUR:
-        this.setMinutes(0, 0, 0);
+        this.minute(0, 0, 0);
         break;
       case DAY:
-        this.setHours(0, 0, 0, 0);
+        this.hour(0, 0, 0, 0);
         break;
       case MONTH:
-        this.setHours(0, 0, 0, 0);
-        this.setDate(1);
+        this.hour(0, 0, 0, 0);
+        this.date(1);
         break;
       case QUARTER:
-        this.setHours(0, 0, 0, 0);
-        this.setDate(1);
-        this.setMonth((this.getQuarter() - 1) * 3);
+        this.hour(0, 0, 0, 0);
+        this.date(1);
+        this.month((this.getQuarter() - 1) * 3);
         break;
       case YEAR:
-        this.setHours(0, 0, 0, 0);
-        this.setDate(1);
-        this.setMonth(0);
+        this.hour(0, 0, 0, 0);
+        this.date(1);
+        this.month(0);
         break;
     }
     return this;
@@ -502,7 +527,7 @@ class DateTime extends Date {
    * Convert to UTC Date.
    */
   public toUTC(): DateTime {
-    return new DateTime(
+    const datetime = new DateTime(
       Date.UTC(
         this.getUTCFullYear(),
         this.getUTCMonth(),
@@ -513,6 +538,15 @@ class DateTime extends Date {
         this.getUTCMilliseconds()
       )
     );
+    datetime._isUtc = true;
+    return datetime;
+  }
+
+  /**
+   * Check if DateTime object is in UTC mode
+   */
+  public isUTC(): boolean {
+    return this._isUtc;
   }
 
   /**
@@ -528,10 +562,10 @@ class DateTime extends Date {
    */
   public millisecond(ms?: number): number | DateTime {
     if (ms !== undefined) {
-      this.setMilliseconds(ms);
+      this.isUTC() ? this.setUTCMilliseconds(ms) : this.setMilliseconds(ms);
       return this;
     }
-    return this.getMilliseconds();
+    return this.isUTC() ? this.getUTCMilliseconds() : this.getMilliseconds();
   }
 
   /**
@@ -541,10 +575,15 @@ class DateTime extends Date {
    */
   public second(sec?: number, ms?: number): number | DateTime {
     if (sec !== undefined) {
-      this.setSeconds(sec, ms);
+      const setterName = this.isUTC() ? 'setUTCSeconds' : 'setSeconds';
+      if (ms !== undefined) {
+        this[setterName](sec, ms);
+      } else {
+        this[setterName](sec);
+      }
       return this;
     }
-    return this.getSeconds();
+    return this.isUTC() ? this.getUTCSeconds() : this.getSeconds();
   }
 
   /**
@@ -555,10 +594,17 @@ class DateTime extends Date {
    */
   public minute(min?: number, sec?: number, ms?: number): number | DateTime {
     if (min !== undefined) {
-      this.setMinutes(min, sec, ms);
+      const setterName = this.isUTC() ? 'setUTCMinutes' : 'setMinutes';
+      if (ms !== undefined) {
+        this[setterName](min, sec, ms);
+      } else if (sec !== undefined) {
+        this[setterName](min, sec);
+      } else {
+        this[setterName](min);
+      }
       return this;
     }
-    return this.getMinutes();
+    return this.isUTC() ? this.getUTCMinutes() : this.getMinutes();
   }
 
   /**
@@ -575,10 +621,19 @@ class DateTime extends Date {
     ms?: number
   ): number | DateTime {
     if (hour !== undefined) {
-      this.setHours(hour, min, sec, ms);
+      const setterName = this.isUTC() ? 'setUTCHours' : 'setHours';
+      if (ms !== undefined) {
+        this[setterName](hour, min, sec, ms);
+      } else if (sec !== undefined) {
+        this[setterName](hour, min, sec);
+      } else if (min !== undefined) {
+        this[setterName](hour, min);
+      } else {
+        this[setterName](hour);
+      }
       return this;
     }
-    return this.getHours();
+    return this.isUTC() ? this.getUTCHours() : this.getHours();
   }
 
   /**
@@ -587,10 +642,10 @@ class DateTime extends Date {
    */
   public date(date?: number): number | DateTime {
     if (date !== undefined) {
-      this.setDate(date);
+      this.isUTC() ? this.setUTCDate(date) : this.setDate(date);
       return this;
     }
-    return this.getDate();
+    return this.isUTC() ? this.getUTCDate() : this.getDate();
   }
 
   /**
@@ -600,10 +655,15 @@ class DateTime extends Date {
    */
   public month(month?: number, date?: number): number | DateTime {
     if (month !== undefined) {
-      this.setMonth(month, date);
+      const setterName = this.isUTC() ? 'setUTCMonth' : 'setMonth';
+      if (date !== undefined) {
+        this[setterName](month, date);
+      } else {
+        this[setterName](month);
+      }
       return this;
     }
-    return this.getMonth();
+    return this.isUTC() ? this.getUTCMonth() : this.getMonth();
   }
 
   /**
@@ -612,10 +672,10 @@ class DateTime extends Date {
    */
   public quarter(quarter?: number): number | DateTime {
     if (quarter !== undefined) {
-      this.setMonth((quarter - 1) * 3);
+      this.month((quarter - 1) * 3);
       return this;
     }
-    return this.getFullYear();
+    return this.getQuarter();
   }
 
   /**
@@ -626,10 +686,86 @@ class DateTime extends Date {
    */
   public year(year?: number, month?: number, date?: number): number | DateTime {
     if (year !== undefined) {
-      this.setFullYear(year, month, date);
+      const setterName = this.isUTC() ? 'setUTCFullYear' : 'setFullYear';
+      if (date !== undefined) {
+        this[setterName](year, month, date);
+      } else if (month !== undefined) {
+        this[setterName](year, month);
+      } else {
+        this[setterName](year);
+      }
       return this;
     }
-    return this.getFullYear();
+    return this.isUTC() ? this.getUTCFullYear() : this.getFullYear();
+  }
+
+  /**
+   * Get value of given unit.
+   * @param unit - Unit of time
+   */
+  public get(unit: string): number {
+    switch (normalizeUnit(unit)) {
+      case MILLISECOND:
+        // @ts-ignore
+        return this.millisecond();
+      case SECOND:
+        // @ts-ignore
+        return this.second();
+      case MINUTE:
+        // @ts-ignore
+        return this.minute();
+      case HOUR:
+        // @ts-ignore
+        return this.hour();
+      case DAY:
+        // @ts-ignore
+        return this.date();
+      case MONTH:
+        // @ts-ignore
+        return this.month();
+      case QUARTER:
+        // @ts-ignore
+        return this.quarter();
+      case YEAR:
+        // @ts-ignore
+        return this.year();
+    }
+    return 0;
+  }
+
+  /**
+   * Set value of given unit.
+   * @param value - Value to set unit to
+   * @param unit - Unit of time the value is for. Default is milliseconds.
+   */
+  public set(value: number, unit: string = 'milliseconds'): DateTime {
+    switch (normalizeUnit(unit)) {
+      case MILLISECOND:
+        this.millisecond(value);
+        break;
+      case SECOND:
+        this.second(value);
+        break;
+      case MINUTE:
+        this.minute(value);
+        break;
+      case HOUR:
+        this.hour(value);
+        break;
+      case DAY:
+        this.date(value);
+        break;
+      case MONTH:
+        this.month(value);
+        break;
+      case QUARTER:
+        this.quarter(value);
+        break;
+      case YEAR:
+        this.year(value);
+        break;
+    }
+    return this;
   }
 }
 

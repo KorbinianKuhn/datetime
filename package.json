@@ -6,13 +6,13 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "npm run clean && tsc",
-    "prepublishOnly": "npm audit && npm build && npm test",
+    "prepublishOnly": "npm audit && npm run-script build && npm test",
     "clean": "shx rm -rf dist",
     "test": "jest test",
     "test:coverage": "jest --coverage",
     "lint": "tslint src/**/*.ts && eslint test/**/*.js",
     "lint:fix": "tslint src/**/*.ts --fix && eslint test/**/*.js --fix",
-    "precommit": "npm audit && lint-staged && npm build && npm test"
+    "precommit": "npm audit && lint-staged && npm run-script build && npm test"
   },
   "repository": {
     "type": "git",

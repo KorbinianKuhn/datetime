@@ -106,13 +106,25 @@ class DateTime extends Date {
         this.date(this.get('day') + amount);
         break;
       case MONTH:
+        const dayMonth = this.get('day');
         this.month(this.get('month') + amount);
+        if (this.get('day') !== dayMonth) {
+          this.subtract(this.get('day'), 'days');
+        }
         break;
       case QUARTER:
-        this.quarter(this.get('quarter') + amount);
+        const dayQuarter = this.get('day');
+        this.month(this.get('month') + amount * 3);
+        if (this.get('day') !== dayQuarter) {
+          this.subtract(this.get('day'), 'days');
+        }
         break;
       case YEAR:
+        const dayYear = this.get('day');
         this.year(this.get('year') + amount);
+        if (this.get('day') !== dayYear) {
+          this.subtract(this.get('day'), 'days');
+        }
         break;
     }
     return this;
@@ -192,7 +204,7 @@ class DateTime extends Date {
               compareDate.getMonth(),
               compareDate.getDate()
             )) /
-            MILLISECONDS_PER_DAY
+          MILLISECONDS_PER_DAY
         );
       case MONTH:
         return (
@@ -289,14 +301,14 @@ class DateTime extends Date {
           return this.hour() === 0
             ? '12'
             : this.hour() < 13
-            ? `${this.hour()}`
-            : `${this.get('hour') - 12}`;
+              ? `${this.hour()}`
+              : `${this.get('hour') - 12}`;
         case 'hh':
           return this.hour() === 0
             ? '12'
             : this.hour() < 13
-            ? padStart(this.get('hour'))
-            : padStart(this.get('hour') - 12);
+              ? padStart(this.get('hour'))
+              : padStart(this.get('hour') - 12);
         case 'a':
           return this.hour() < 12 ? 'am' : 'pm';
         case 'A':

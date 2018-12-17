@@ -8,7 +8,7 @@
     "build": "npm run clean && tsc",
     "prepublishOnly": "npm audit && npm build && npm test",
     "clean": "shx rm -rf dist",
-    "test": "jest test/**",
+    "test": "jest test",
     "test:coverage": "jest --coverage",
     "lint": "tslint src/**/*.ts && eslint test/**/*.js",
     "lint:fix": "tslint src/**/*.ts --fix && eslint test/**/*.js --fix",

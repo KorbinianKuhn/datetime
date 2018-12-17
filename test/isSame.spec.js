@@ -28,6 +28,12 @@ describe('isSame()', () => {
         const actual = datetime(date).isSame(dateB, unit);
         expect(actual).toEqual(expected);
       });
+
+      it(`utc: with unit ${unit} and date ${date.toISOString()} should verify`, () => {
+        const expected = moment.utc(date).isSame(dateB, unit);
+        const actual = datetime.utc(date).isSame(dateB, unit);
+        expect(actual).toEqual(expected);
+      });
     });
   });
 });

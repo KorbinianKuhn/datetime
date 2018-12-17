@@ -28,6 +28,12 @@ describe('isAfter()', () => {
         const actual = datetime(date).isAfter(dateB, unit);
         expect(actual).toEqual(expected);
       });
+
+      it(`utc: with unit ${unit} and date ${date.toISOString()} should verify`, () => {
+        const expected = moment.utc(date).isAfter(dateB, unit);
+        const actual = datetime.utc(date).isAfter(dateB, unit);
+        expect(actual).toEqual(expected);
+      });
     });
   });
 });

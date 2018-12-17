@@ -25,6 +25,18 @@ describe('endOf()', () => {
           .toDate();
         expect(actual).toEqual(expected);
       });
+
+      it(`utc: with unit ${unit} and date ${date.toISOString()} should verify`, () => {
+        const expected = moment
+          .utc(date)
+          .endOf(unit)
+          .toDate();
+        const actual = datetime
+          .utc(date)
+          .endOf(unit)
+          .toDate();
+        expect(actual).toEqual(expected);
+      });
     });
   });
 });

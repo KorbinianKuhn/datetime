@@ -106,24 +106,27 @@ class DateTime extends Date {
         this.date(this.get('day') + amount);
         break;
       case MONTH:
-        const dayMonth = this.get('day');
+        const currentDayInMonth = this.get('day');
         this.month(this.get('month') + amount);
-        if (this.get('day') !== dayMonth) {
-          this.subtract(this.get('day'), 'days');
+        const newDayInMonth = this.get('day');
+        if (newDayInMonth !== currentDayInMonth) {
+          this.subtract(newDayInMonth, 'days');
         }
         break;
       case QUARTER:
-        const dayQuarter = this.get('day');
+        const currentDayInQuarter = this.get('day');
         this.month(this.get('month') + amount * 3);
-        if (this.get('day') !== dayQuarter) {
-          this.subtract(this.get('day'), 'days');
+        const newDayInQuarter = this.get('day');
+        if (newDayInQuarter !== currentDayInQuarter) {
+          this.subtract(newDayInQuarter, 'days');
         }
         break;
       case YEAR:
-        const dayYear = this.get('day');
+        const currentDayInYear = this.get('day');
         this.year(this.get('year') + amount);
-        if (this.get('day') !== dayYear) {
-          this.subtract(this.get('day'), 'days');
+        const newDayInYear = this.get('day');
+        if (newDayInYear !== currentDayInYear) {
+          this.subtract(newDayInYear, 'days');
         }
         break;
     }

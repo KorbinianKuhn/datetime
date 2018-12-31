@@ -75,6 +75,37 @@ const toDateTime = (date: Date | DateTime, isUTC: boolean): DateTime => {
   return date instanceof DateTime ? date : isUTC ? utc(date) : local(date);
 };
 
+const absFloor = (number: number) => {
+  if (number < 0) {
+    // -0 -> 0
+    return Math.ceil(number) || 0;
+  } else {
+    return Math.floor(number);
+  }
+};
+
+const monthDiff = (a: DateTime, b: DateTime) => {
+  // difference in months
+  const wholeMonthDiff = ((b.year() as number) - (a.year() as number)) * 12 + ((b.month() as number) - (a.month() as number));
+  // b is in (anchor - 1 month, anchor + 1 month)
+  const anchor = a.clone().add(wholeMonthDiff, 'months').getTime();
+  let anchor2;
+  let adjust;
+
+  if (b.getTime() - anchor < 0) {
+    anchor2 = a.clone().add(wholeMonthDiff - 1, 'months').getTime();
+    // linear across the month
+    adjust = (b.getTime() - anchor) / (anchor - anchor2);
+  } else {
+    anchor2 = a.clone().add(wholeMonthDiff + 1, 'months').getTime();
+    // linear across the month
+    adjust = (b.getTime() - anchor) / (anchor2 - anchor);
+  }
+
+  // check for negative zero, return zero if negative zero
+  return -(wholeMonthDiff + adjust) || 0;
+};
+
 class DateTime extends Date {
   private _isUtc: boolean;
 
@@ -133,6 +164,10 @@ class DateTime extends Date {
     return this;
   }
 
+  public utcOffset(): number {
+    return this.isUTC() === true ? 0 : this.getTimezoneOffset();
+  }
+
   /**
    * Create copy of DateTime.
    */
@@ -181,48 +216,44 @@ class DateTime extends Date {
    * @param date - The date that will be subtracted.
    * @param unit - Unit of time. Default is milliseconds.
    */
-  public diff(date: Date | DateTime, unit: string = 'milliseconds'): number {
+  public diff(date: Date | DateTime, unit: string = 'milliseconds', asFloat: boolean = false): number {
     const compareDate = toDateTime(date, this.isUTC());
 
     switch (normalizeUnit(unit)) {
       case MILLISECOND:
         return this.getTime() - compareDate.getTime();
       case SECOND:
-        return Math.floor(
-          (this.getTime() - compareDate.getTime()) / MILLISECONDS_PER_SECOND
-        );
+        return asFloat
+          ? (this.getTime() - compareDate.getTime()) / MILLISECONDS_PER_SECOND
+          : absFloor((this.getTime() - compareDate.getTime()) / MILLISECONDS_PER_SECOND);
       case MINUTE:
-        return Math.floor(
-          (this.getTime() - compareDate.getTime()) / MILLISECONDS_PER_MINUTE
-        );
+        return asFloat
+          ? (this.getTime() - compareDate.getTime()) / MILLISECONDS_PER_MINUTE
+          : absFloor((this.getTime() - compareDate.getTime()) / MILLISECONDS_PER_MINUTE);
       case HOUR:
-        return Math.floor(
-          (this.getTime() - compareDate.getTime()) / MILLISECONDS_PER_HOUR
-        );
-      case DAY:
-        return Math.floor(
-          (Date.UTC(this.getFullYear(), this.getMonth(), this.getDate()) -
-            Date.UTC(
-              compareDate.getFullYear(),
-              compareDate.getMonth(),
-              compareDate.getDate()
-            )) /
-          MILLISECONDS_PER_DAY
-        );
+        return asFloat
+          ? (this.getTime() - compareDate.getTime()) / MILLISECONDS_PER_HOUR
+          : absFloor(
+            (this.getTime() - compareDate.getTime()) / MILLISECONDS_PER_HOUR
+          );
+      case DAY: {
+        const offset: number = (compareDate.utcOffset() - this.utcOffset()) * MILLISECONDS_PER_MINUTE;
+        return asFloat
+          ? (this.getTime() - compareDate.getTime() + offset) / MILLISECONDS_PER_DAY
+          : absFloor((this.getTime() - compareDate.getTime() + offset) / MILLISECONDS_PER_DAY);
+      }
       case MONTH:
-        return (
-          (this.get('year') - compareDate.get('year')) * 12 +
-          this.get('month') -
-          compareDate.get('month')
-        );
+        return asFloat
+          ? monthDiff(this, compareDate)
+          : absFloor(monthDiff(this, compareDate));
       case QUARTER:
-        return (
-          (this.get('year') - compareDate.get('year')) * 4 +
-          this.get('quarter') -
-          compareDate.get('quarter')
-        );
+        return asFloat
+          ? monthDiff(this, compareDate) / 3
+          : absFloor(monthDiff(this, compareDate) / 3);
       case YEAR:
-        return this.get('year') - compareDate.get('year');
+        return asFloat
+          ? monthDiff(this, compareDate) / 12
+          : absFloor(monthDiff(this, compareDate) / 12);
       default:
         return 0;
     }

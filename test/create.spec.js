@@ -1,15 +1,7 @@
 const moment = require('moment');
-const datetime = require('./../dist');
+const datetime = require('../dist');
 
-describe('toUTC()', () => {
-  it('should return correct toUTC timestamp', () => {
-    const date = new Date('2017-02-01T00:00:00.000Z');
-    const expected = moment.utc(date).toDate();
-
-    expect(datetime(date).toUTC()).toEqual(expected);
-    expect(datetime.utc(date).toDate()).toEqual(expected);
-  });
-
+describe('create()', () => {
   const dates = [
     new Date('2017-01-01T00:00:00.000Z'),
     new Date('2017-05-26T21:21:34.381Z'),
@@ -129,15 +121,30 @@ describe('toUTC()', () => {
   ];
 
   dates.map(date => {
-    it(`should return correct toUTC timestamp with date ${
+    it(`with date ${
       typeof date === 'object'
         ? date.toISOString() + ' type date'
         : date + ' type string'
-    }`, () => {
-      const expected = moment.utc(date).toDate();
+    } should verify`, () => {
+      const momentOrg = moment(date);
+      const datetimeOrg = datetime(date);
+      expect(momentOrg.valueOf()).toEqual(datetimeOrg.getTime());
+      expect(momentOrg.hours()).toEqual(datetimeOrg.hour());
+      expect(momentOrg.date()).toEqual(datetimeOrg.date());
+      expect(momentOrg.month()).toEqual(datetimeOrg.month());
+    });
 
-      expect(datetime(date).toUTC()).toEqual(expected);
-      expect(datetime.utc(date).toDate()).toEqual(expected);
+    it(`utc: with date ${
+      typeof date === 'object'
+        ? date.toISOString() + ' type date'
+        : date + ' type string'
+    } should verify`, () => {
+      const momentOrg = moment.utc(date);
+      const datetimeOrg = datetime.utc(date);
+      expect(momentOrg.valueOf()).toEqual(datetimeOrg.getTime());
+      expect(momentOrg.hours()).toEqual(datetimeOrg.hour());
+      expect(momentOrg.date()).toEqual(datetimeOrg.date());
+      expect(momentOrg.month()).toEqual(datetimeOrg.month());
     });
   });
 });

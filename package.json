@@ -34,19 +34,19 @@
   },
   "homepage": "https://github.com/KorbinianKuhn/datetime#readme",
   "devDependencies": {
-    "coveralls": "^3.0.4",
-    "eslint": "^6.0.1",
-    "eslint-config-prettier": "^6.0.0",
+    "coveralls": "^3.0.6",
+    "eslint": "^6.3.0",
+    "eslint-config-prettier": "^6.1.0",
     "eslint-plugin-prettier": "^3.1.0",
-    "husky": "^3.0.0",
-    "jest": "^24.8.0",
-    "lint-staged": "^9.0.2",
+    "husky": "^3.0.5",
+    "jest": "^24.9.0",
+    "lint-staged": "^9.2.5",
     "moment": "^2.24.0",
     "prettier": "^1.18.2",
     "shx": "^0.3.2",
-    "tslint": "^5.18.0",
+    "tslint": "^5.19.0",
     "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.5.2"
+    "typescript": "^3.6.2"
   },
   "lint-staged": {
     "*.ts": [

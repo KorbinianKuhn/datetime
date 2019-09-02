@@ -86,18 +86,29 @@ const absFloor = (number: number) => {
 
 const monthDiff = (a: DateTime, b: DateTime) => {
   // difference in months
-  const wholeMonthDiff = ((b.year() as number) - (a.year() as number)) * 12 + ((b.month() as number) - (a.month() as number));
+  const wholeMonthDiff =
+    ((b.year() as number) - (a.year() as number)) * 12 +
+    ((b.month() as number) - (a.month() as number));
   // b is in (anchor - 1 month, anchor + 1 month)
-  const anchor = a.clone().add(wholeMonthDiff, 'months').getTime();
+  const anchor = a
+    .clone()
+    .add(wholeMonthDiff, 'months')
+    .getTime();
   let anchor2;
   let adjust;
 
   if (b.getTime() - anchor < 0) {
-    anchor2 = a.clone().add(wholeMonthDiff - 1, 'months').getTime();
+    anchor2 = a
+      .clone()
+      .add(wholeMonthDiff - 1, 'months')
+      .getTime();
     // linear across the month
     adjust = (b.getTime() - anchor) / (anchor - anchor2);
   } else {
-    anchor2 = a.clone().add(wholeMonthDiff + 1, 'months').getTime();
+    anchor2 = a
+      .clone()
+      .add(wholeMonthDiff + 1, 'months')
+      .getTime();
     // linear across the month
     adjust = (b.getTime() - anchor) / (anchor2 - anchor);
   }
@@ -216,7 +227,11 @@ class DateTime extends Date {
    * @param date - The date that will be subtracted.
    * @param unit - Unit of time. Default is milliseconds.
    */
-  public diff(date: Date | DateTime, unit: string = 'milliseconds', asFloat: boolean = false): number {
+  public diff(
+    date: Date | DateTime,
+    unit: string = 'milliseconds',
+    asFloat: boolean = false
+  ): number {
     const compareDate = toDateTime(date, this.isUTC());
 
     switch (normalizeUnit(unit)) {
@@ -225,22 +240,32 @@ class DateTime extends Date {
       case SECOND:
         return asFloat
           ? (this.getTime() - compareDate.getTime()) / MILLISECONDS_PER_SECOND
-          : absFloor((this.getTime() - compareDate.getTime()) / MILLISECONDS_PER_SECOND);
+          : absFloor(
+              (this.getTime() - compareDate.getTime()) / MILLISECONDS_PER_SECOND
+            );
       case MINUTE:
         return asFloat
           ? (this.getTime() - compareDate.getTime()) / MILLISECONDS_PER_MINUTE
-          : absFloor((this.getTime() - compareDate.getTime()) / MILLISECONDS_PER_MINUTE);
+          : absFloor(
+              (this.getTime() - compareDate.getTime()) / MILLISECONDS_PER_MINUTE
+            );
       case HOUR:
         return asFloat
           ? (this.getTime() - compareDate.getTime()) / MILLISECONDS_PER_HOUR
           : absFloor(
-            (this.getTime() - compareDate.getTime()) / MILLISECONDS_PER_HOUR
-          );
+              (this.getTime() - compareDate.getTime()) / MILLISECONDS_PER_HOUR
+            );
       case DAY: {
-        const offset: number = (compareDate.utcOffset() - this.utcOffset()) * MILLISECONDS_PER_MINUTE;
+        const offset: number =
+          (compareDate.utcOffset() - this.utcOffset()) *
+          MILLISECONDS_PER_MINUTE;
         return asFloat
-          ? (this.getTime() - compareDate.getTime() + offset) / MILLISECONDS_PER_DAY
-          : absFloor((this.getTime() - compareDate.getTime() + offset) / MILLISECONDS_PER_DAY);
+          ? (this.getTime() - compareDate.getTime() + offset) /
+              MILLISECONDS_PER_DAY
+          : absFloor(
+              (this.getTime() - compareDate.getTime() + offset) /
+                MILLISECONDS_PER_DAY
+            );
       }
       case MONTH:
         return asFloat
@@ -324,9 +349,9 @@ class DateTime extends Date {
         case 'MMMM':
           return this.toLocaleDateString(locale, { month: 'long' });
         case 'D':
-          return `${this.date()}`;
+          return `${this.get('day')}`;
         case 'DD':
-          return padStart(this.get('date'));
+          return padStart(this.get('day'));
         case 'H':
           return `${this.hour()}`;
         case 'HH':
@@ -335,14 +360,14 @@ class DateTime extends Date {
           return this.hour() === 0
             ? '12'
             : this.hour() < 13
-              ? `${this.hour()}`
-              : `${this.get('hour') - 12}`;
+            ? `${this.hour()}`
+            : `${this.get('hour') - 12}`;
         case 'hh':
           return this.hour() === 0
             ? '12'
             : this.hour() < 13
-              ? padStart(this.get('hour'))
-              : padStart(this.get('hour') - 12);
+            ? padStart(this.get('hour'))
+            : padStart(this.get('hour') - 12);
         case 'a':
           return this.hour() < 12 ? 'am' : 'pm';
         case 'A':
